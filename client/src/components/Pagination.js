@@ -1,0 +1,1 @@
+// Pagination Component for handling page navigation in data tables.
