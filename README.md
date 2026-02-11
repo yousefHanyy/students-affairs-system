@@ -80,38 +80,37 @@ Once the application is running, you can:
 
 ```
 students-affairs-system/
-├── backend/
+├── client/
+│   ├── css/
+│   │   └── style.css
+│   ├── public/
+│   │   └── index.html
+│   └── src/
+│       ├── api/
+│       │   └── baseApi.js
+│       ├── components/
+│       │   ├── DataTable.js
+│       │   ├── Form.js
+│       │   └── Pagination.js
+│       ├── models/
+│       │   ├── Course.js
+│       │   ├── Employee.js
+│       │   ├── Instructor.js
+│       │   └── Student.js
+│       ├── services/
+│       │   ├── courseService.js
+│       │   ├── employeeService.js
+│       │   ├── instructorService.js
+│       │   └── studentService.js
+│       ├── utils/
+│       │   └── validators.js
+│       └── app.js
+├── server/
 │   ├── node_modules/
-│   ├── src/
-│   │   ├── api/
-│   │   │   └── baseApi.js
-│   │   └── services/
-│   │       ├── courseService.js
-│   │       ├── employeeService.js
-│   │       ├── instructorService.js
-│   │       └── studentService.js
 │   ├── db.json
 │   ├── package-lock.json
 │   └── package.json
-├── frontend/
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── api/
-│   │   │   └── request.js
-│   │   ├── components/
-│   │   │   ├── FormHandler.js
-│   │   │   └── TableRenderer.js
-│   │   ├── models/
-│   │   │   ├── Course.js
-│   │   │   ├── Employee.js
-│   │   │   ├── Instructor.js
-│   │   │   └── Student.js
-│   │   └── utils/
-│   │       ├── validators.js
-│   │       └── app.js
-│   └── styles/
-│       └── style.css
+├── .gitignore
 └── README.md
 ```
 
