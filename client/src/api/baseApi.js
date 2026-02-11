@@ -55,4 +55,19 @@ class BaseApi {
       throw error;
     }
   }
+  //Delete method:
+  async delete(endpoint) {
+    try {
+      const response = await fetch(`${this.baseURL}${endpoint}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("DELETE error:", error);
+      throw error;
+    }
+  }
 }
