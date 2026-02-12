@@ -4,3 +4,13 @@
 // Handles navigation between different sections (Students, Courses, Instructors, Employees).
 // Coordinates between services and components.
 // Sets up event listeners for the navigation menu.
+
+//* import BaseApi from "./api/baseApi.js";
+
+//* let test = new BaseApi();
+
+
+//* console.log(await test.get("/students"));
+
+//^ import StudentService from "./services/studentService.js";
+//^ console.log(await (new StudentService()).getAllStudents());
