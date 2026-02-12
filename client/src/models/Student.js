@@ -5,14 +5,16 @@
 import validate from "../utils/validators.js";
 
 class Student {
-  constructor(name, email, phone, department) {
+  constructor(id = null, name, email, phone, department) {
+    // json-server handles ID generation for new records, but you still need ID support in the models for edit operations
+    if (id) this.id = id;
     this.name = name;
     this.email = email;
     this.phone = phone;
     this.department = department;
   }
 
-  Validate() {
+  validate() {
     return validate.validateStudent(this);
   }
 }

@@ -19,8 +19,10 @@ class Validators {
   static validateStudent(data) {
     const errors = [];
     if (!this.isNotEmpty(data.name)) errors.push("Student name is required");
-    if (!this.isValidEmail(data.email)) errors.push("Invalid email");
-    if (!this.isValidPhone(data.phone)) errors.push("Invalid phone number");
+    if (data.email && !this.isValidEmail(data.email))
+      errors.push("Invalid email");
+    if (data.phone && !this.isValidPhone(data.phone))
+      errors.push("Invalid phone number");
     if (!this.isNotEmpty(data.department))
       errors.push("Department is required");
     return { isValid: errors.length === 0, errors };
@@ -38,7 +40,8 @@ class Validators {
   static validateInstructor(data) {
     const errors = [];
     if (!this.isNotEmpty(data.name)) errors.push("Instructor name is required");
-    if (!this.isValidEmail(data.email)) errors.push("Invalid email");
+    if (data.email && !this.isValidEmail(data.email))
+      errors.push("Invalid email");
     if (!this.isNotEmpty(data.department))
       errors.push("Department is required");
     return { isValid: errors.length === 0, errors };
@@ -48,7 +51,8 @@ class Validators {
   static validateEmployee(data) {
     const errors = [];
     if (!this.isNotEmpty(data.name)) errors.push("Employee name is required");
-    if (!this.isValidEmail(data.email)) errors.push("Invalid email");
+    if (data.email && !this.isValidEmail(data.email))
+      errors.push("Invalid email");
     if (!this.isNotEmpty(data.position)) errors.push("Position is required");
     return { isValid: errors.length === 0, errors };
   }

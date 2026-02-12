@@ -5,7 +5,9 @@
 import validate from "../utils/validators.js";
 
 class Instructor {
-  constructor(name, email, department) {
+  constructor(id = null, name, email, department) {
+    // json-server handles ID generation for new records, but you still need ID support in the models for edit operations
+    if (id) this.id = id;
     this.name = name;
     this.email = email;
     this.department = department;
