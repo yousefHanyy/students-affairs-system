@@ -1,7 +1,7 @@
 {
-  "name": "students-affairs-client",
+  "name": "client",
   "version": "1.0.0",
-  "description": "Students Affairs System Client",
+  "description": "",
   "scripts": {
     "dev": "npx http-server . -p 8080 -o /public/index.html -c-1",
     "start": "npx http-server . -p 8080 -o /public/index.html"
