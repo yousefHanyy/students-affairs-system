@@ -2,7 +2,7 @@
 // Course Class Structure (id, name, code) and Validations (name and code are required, code must be unique).
 // Note: Validation implementation is inside utils/validators.js, and the Course class is defined in this file.
 
-import validate from "../utils/validators.js";
+import Validators from "../utils/validators.js";
 
 class Course {
   constructor(id = null, name, code) {
@@ -13,7 +13,7 @@ class Course {
   }
 
   validate() {
-    return validate.validateCourse(this);
+    return Validators.validateCourse(this);
   }
 }
 

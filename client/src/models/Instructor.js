@@ -2,7 +2,7 @@
 // Instructor Class Structure (id, name, email, department) and Validations (name and department are required, and email format).
 // Note: Validation implementation is inside utils/validators.js, and the Instructor class is defined in this file.
 
-import validate from "../utils/validators.js";
+import Validators from "../utils/validators.js";
 
 class Instructor {
   constructor(id = null, name, email, department) {
@@ -14,7 +14,7 @@ class Instructor {
   }
 
   validate() {
-    return validate.validateInstructor(this);
+    return Validators.validateInstructor(this);
   }
 }
 

@@ -2,7 +2,7 @@
 // Employee Class Structure (id, name, email, position) and Validations (name and position are required, and email format).
 // Note: Validation implementation is inside utils/validators.js, and the Employee class is defined in this file.
 
-import validate from "../utils/validators.js";
+import Validators from "../utils/validators.js";
 
 class Employee {
   constructor(id = null, name, email, position) {
@@ -14,7 +14,7 @@ class Employee {
   }
 
   validate() {
-    return validate.validateEmployee(this);
+    return Validators.validateEmployee(this);
   }
 }
 

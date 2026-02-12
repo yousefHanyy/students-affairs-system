@@ -2,7 +2,7 @@
 // Student Class Structure (id, name, email, phone, department) and Validations (name and department are required, and email format).
 // Note: Validation implementation is inside utils/validators.js, and the Student class is defined in this file.
 
-import validate from "../utils/validators.js";
+import Validators from "../utils/validators.js";
 
 class Student {
   constructor(id = null, name, email, phone, department) {
@@ -15,7 +15,7 @@ class Student {
   }
 
   validate() {
-    return validate.validateStudent(this);
+    return Validators.validateStudent(this);
   }
 }
 
