@@ -4,9 +4,7 @@
 
 import BaseApi from "../api/baseApi.js";
 export default class StudentService extends BaseApi {
-  constructor() {
-    super();
-  }
+
   getAllStudents() {
     return this.get("/students");
   }

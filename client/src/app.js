@@ -9,8 +9,7 @@
 
 //* let test = new BaseApi();
 
-
 //* console.log(await test.get("/students"));
 
-//^ import StudentService from "./services/studentService.js";
-//^ console.log(await (new StudentService()).getAllStudents());
+// import StudentService from "./services/studentService.js";
+// console.log(await new StudentService().getAllStudents());
