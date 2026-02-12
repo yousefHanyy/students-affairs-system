@@ -17,6 +17,21 @@ class BaseApi {
       throw error;
     }
   }
+  //Get for pagination(returns both data and headers for pagination):
+  async getWithHeaders(endpoint) {
+    try {
+      const response = await fetch(`${this.baseURL}${endpoint}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const headers = response.headers;
+      return { data, headers };
+    } catch (error) {
+      console.error("GET error:", error);
+      throw error;
+    }
+  }
   //Post method (create):
   async post(endpoint, data) {
     try {
