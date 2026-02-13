@@ -11,5 +11,11 @@
 
 //* console.log(await test.get("/students"));
 
-// import StudentService from "./services/studentService.js";
-// console.log(await new StudentService().getAllStudents());
+import StudentService from "./services/studentService.js";
+console.log(await new StudentService().getAllStudents());
+console.log(await new StudentService().getStudentById(1));
+console.log(await new StudentService().searchStudentsByName("Adel Mansour"));
+console.log(await new StudentService().getSortedStudents("email", "desc"));
+console.log(await new StudentService().getSortedStudents());
+console.log(await new StudentService().getStudentsPaginated());
+console.log(await new StudentService().getStudentsPaginated(2, 15));
