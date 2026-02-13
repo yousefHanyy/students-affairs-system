@@ -21,4 +21,4 @@ console.log(await new StudentService().getStudentsPaginated());
 console.log(await new StudentService().getStudentsPaginated(2, 15));
 // import StudentService from "./services/studentService.js";
 // console.log(await new StudentService().getAllStudents());
-// console.log(await new StudentService().getStudentPage(2, 15));
+console.log(await new StudentService().getStudentPage(2, 15));
