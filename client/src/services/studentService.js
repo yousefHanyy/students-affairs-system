@@ -48,6 +48,6 @@ export default class StudentService extends BaseApi {
     const hasNext = page < totalPages;
     const hasPrev = page > 1;
 
-    return { data, total, totalPages, hasNext, hasPrev };
+    return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
   }
 }
