@@ -13,3 +13,4 @@
 
 // import StudentService from "./services/studentService.js";
 // console.log(await new StudentService().getAllStudents());
+// console.log(await new StudentService().getStudentPage(2, 15));
