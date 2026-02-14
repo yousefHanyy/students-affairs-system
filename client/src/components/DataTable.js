@@ -1,6 +1,6 @@
 // Data Table Component for displaying tabular data with sorting, and searching features.
 class DataTable {
-  constructor(tableHeadId = "table-head", tableBodyId = "table-body") {
+  constructor(tableHeadId = "#table-head", tableBodyId = "#table-body") {
     this.bodyElement = document.querySelector(tableBodyId);
     this.headElement = document.querySelector(tableHeadId);
     this.currentSortField = "id";
