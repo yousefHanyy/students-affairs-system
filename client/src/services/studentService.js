@@ -26,7 +26,11 @@ export default class StudentService extends BaseApi {
         return {
           ...student,
           courses: courses
-            .filter((c) => originalCourseIds.includes(c.id))
+            .filter(
+              (c) =>
+                originalCourseIds.includes(Number(c.id)) ||
+                originalCourseIds.includes(String(c.id)),
+            )
             .map((c) => c.name),
         };
       }

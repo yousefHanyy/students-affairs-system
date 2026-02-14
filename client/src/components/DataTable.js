@@ -42,7 +42,7 @@ class DataTable {
 
       <!-- Table card -->
       <div class="card">
-        <div class="card-body p-0">
+        <div class="card-body p-2">
           <div class="table-responsive">
             <table class="table table-hover mb-0 align-middle">
               <thead class="table-light" id="table-head">
