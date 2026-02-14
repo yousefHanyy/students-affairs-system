@@ -25,7 +25,9 @@ export default class InstructorService extends BaseApi {
       ) {
         // Save original IDs before any transformation
         const originalCourseId = instructor.assignedCourses[0].courseId;
-        const courseName = courses.find((c) => c.id === originalCourseId)?.name || "Unknown Course";
+        const courseName =
+          courses.find((c) => c.id === originalCourseId)?.name ||
+          "Unknown Course";
         const originalAssignedCourses = instructor.assignedCourses;
 
         // Return NEW object with transformed courses
@@ -91,15 +93,15 @@ export default class InstructorService extends BaseApi {
     return this.delete(`${this.endpoint}/${id}`);
   }
 
-  //UC-05 Paginate records
-  async getInstructorPage(page = 1, perPage = 10) {
+  //UC-05 Paginate records & UC-06 Search records
+  async getInstructorPageWithSearch(page = 1, perPage = 10, query = "") {
     const params = new URLSearchParams();
     params.set("_page", String(page));
     params.set("_limit", String(perPage));
     params.set("role", "instructor");
 
     let { data, headers } = await this.getWithHeaders(
-      `${this.endpoint}?${params.toString()}`,
+      `${this.endpoint}?${params.toString()}&name_like=${query}`,
     );
     const total = Number(headers.get("X-Total-Count") ?? "0");
     const totalPages = Math.ceil(total / perPage);
@@ -109,19 +111,16 @@ export default class InstructorService extends BaseApi {
     return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
   }
 
-  //UC-06 Search records
-  searchInstructorsByName(query) {
-    return this.get(`${this.endpoint}?role=instructor&name_like=${query}`);
-  }
-
   //UC-07 Sort records
-  getSortedInstructors(sortBy = "name", order = "asc") {
-    return this.get(
+  async getSortedInstructors(sortBy = "name", order = "asc") {
+    let instructor = this.get(
       `${this.endpoint}?role=instructor&_sort=${sortBy}&_order=${order}`,
     );
+    return this.instructorWithCoursesNames(instructor);
   }
 
-  getInstructorById(id) {
-    return this.get(`${this.endpoint}/${id}`);
+  async getInstructorById(id) {
+    let instructor = this.get(`${this.endpoint}/${id}`);
+    return this.instructorWithCoursesNames(instructor);
   }
 }

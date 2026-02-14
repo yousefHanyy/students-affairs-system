@@ -19,19 +19,16 @@ export default class StudentService extends BaseApi {
 
     const enriched = studentsArray.map((student) => {
       if (student.courses && Array.isArray(student.courses)) {
-        // Save original IDs before any transformation
         const originalCourseIds = [...student.courses];
 
-        // Return NEW object with transformed courses
+        // Convert course.id to Number for comparison
+        const matched = courses.filter((c) =>
+          originalCourseIds.includes(Number(c.id)),
+        );
+
         return {
           ...student,
-          courses: courses
-            .filter(
-              (c) =>
-                originalCourseIds.includes(Number(c.id)) ||
-                originalCourseIds.includes(String(c.id)),
-            )
-            .map((c) => c.name),
+          courses: matched.map((c) => c.name),
         };
       }
       return student;
@@ -88,14 +85,14 @@ export default class StudentService extends BaseApi {
     return this.delete(`${this.endpoint}/${id}`);
   }
 
-  //UC-05 Paginate records
-  async getStudentPage(page = 1, perPage = 10) {
+  //UC-05 Paginate records & UC-06 Search records
+  async getStudentPageWithSearch(page = 1, perPage = 10, query = "") {
     const params = new URLSearchParams();
     params.set("_page", String(page));
     params.set("_limit", String(perPage));
 
     let { data, headers } = await this.getWithHeaders(
-      `${this.endpoint}?${params.toString()}`,
+      `${this.endpoint}?${params.toString()}&name_like=${query}`,
     );
 
     // Enrich data with course names
@@ -116,14 +113,10 @@ export default class StudentService extends BaseApi {
     };
   }
 
-  //UC-06 Search records
-  searchStudentsByName(query) {
-    return this.get(`/students?name_like=${query}`);
-  }
-
   //UC-07 Sort records
-  getSortedStudents(sortBy = "name", order = "asc") {
-    return this.get(`/students?_sort=${sortBy}&_order=${order}`);
+  async getSortedStudents(sortBy = "name", order = "asc") {
+    let student = await this.get(`/students?_sort=${sortBy}&_order=${order}`);
+    return this.studentsWithCoursesNames(student);
   }
 
   async getStudentById(id) {

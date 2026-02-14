@@ -91,6 +91,7 @@ students-affairs-system/
 │       ├── components/
 │       │   ├── DataTable.js
 │       │   ├── Form.js
+│       │   ├── Navbar.js
 │       │   └── Pagination.js
 │       ├── models/
 │       │   ├── Course.js
