@@ -13,6 +13,32 @@
 
 import CourseService from "./services/courseService.js";
 import StudentService from "./services/studentService.js";
+import DataTable from "./components/DataTable.js";
+import Pagination from "./components/Pagination.js";
+import Navbar from "./components/navbar.js";
+import Form from "./components/Form.js";
+
+// Initialize components
+const navbar = new Navbar("#navbar-container");
+const dataTable = new DataTable(
+  "#datatable-container",
+  "#table-head",
+  "#table-body",
+);
+const form = new Form("#modal-container");
+const pagination = new Pagination(
+  "#pagination-container",
+  "#pagination-info",
+  "#pagination",
+);
+
+// Render HTML components
+navbar.render();
+form.renderToolbar("#toolbar-container");
+form.renderModal();
+dataTable.renderTableContainer();
+pagination.renderContainer();
+
 //test add student
 // console.log(await new StudentService().addStudent("John Doe", "john.doe@student.edu.eg", "01012345678", 20, "Computer Science", [1, 2, 3]));
 //test edit student
@@ -43,30 +69,63 @@ import StudentService from "./services/studentService.js";
 // console.log(await new StudentService().getStudentPage(2, 15));
 //-----------------------------
 //*Testing DataTable Component:
-import DataTable from "./components/DataTable.js";
 
 // No need for DOMContentLoaded - modules are deferred by default
-// 1) Create DataTable instance
-const table = new DataTable("#table-head", "#table-body");
+// 1) Create DataTable instance;
 
-// 2) Set columns (for example, Student columns)
+// ---------- TEST: DataTable + Pagination with real students ----------
+
+// 1) Create instances
+const studentService = new StudentService();
+const table = dataTable;
+
+// Config
+let currentPage = 1;
+const pageSize = 10;
+
+// 2) Configure table columns
 table.setColumns([
-  { key: "id", label: "ID", sortable: true },
-  { key: "name", label: "Name", sortable: true },
-  { key: "email", label: "Email", sortable: true },
-  { key: "phone", label: "Phone", sortable: true },
-  { key: "age", label: "Age", sortable: true },
-  { key: "department", label: "Department", sortable: true },
-  { key: "courses", label: "Courses", sortable: false },
+  { key: "id", label: "ID" },
+  { key: "name", label: "Name" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+  { key: "age", label: "Age" },
+  { key: "courses", label: "Courses" },
+  { key: "department", label: "Department" },
 ]);
 
-// 3) Provide some fake data
-const fakeStudents = await new StudentService().getAllStudents();
+// 3) Load one page and render table + pagination
+async function loadPage(page) {
+  try {
+    const result = await studentService.getStudentPage(page, pageSize);
+    // result: { data, total, totalPages, currentPage, hasNext, hasPrev }
 
-// 4) Render rows
-table.renderRows(fakeStudents);
+    console.log("Loaded page data:", result);
+    console.log("First student courses:", result.data[0]?.courses);
 
-// 5) Hook callbacks to see if buttons and sort work
+    // Render table rows
+    table.renderRows(result.data);
+
+    // Render pagination UI
+    pagination.render(
+      result.currentPage,
+      result.totalPages,
+      result.total,
+      pageSize,
+    );
+  } catch (error) {
+    console.error("Error loading page:", error);
+    alert("Error loading data: " + error.message);
+  }
+}
+
+// 4) Hook pagination -> when user changes page, reload
+pagination.onPageChange = (newPage) => {
+  currentPage = newPage;
+  loadPage(currentPage);
+};
+
+// 5) Optional: hook edit/delete & sort for extra testing
 table.onEdit = (item) => {
   console.log("EDIT clicked:", item);
   alert(`Edit ${item.name}`);
@@ -77,13 +136,18 @@ table.onDelete = (item) => {
   alert(`Delete ${item.name}`);
 };
 
-table.onSortChange = (field, order) => {
+table.onSortChange = async (field, order) => {
   console.log("SORT changed:", field, order);
-  // For testing, just sort the fake array in memory
-  const sorted = [...fakeStudents].sort((a, b) => {
+  // If you want server‑side sort with pagination later, call a different service method.
+  // For now, we just sort in memory the current page:
+  const result = await studentService.getStudentPage(currentPage, pageSize);
+  const sorted = [...result.data].sort((a, b) => {
     if (a[field] < b[field]) return order === "asc" ? -1 : 1;
     if (a[field] > b[field]) return order === "asc" ? 1 : -1;
     return 0;
   });
   table.renderRows(sorted);
 };
+
+// 6) Initial load
+loadPage(currentPage);
