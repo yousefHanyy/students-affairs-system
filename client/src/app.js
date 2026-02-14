@@ -11,8 +11,10 @@
 
 //* console.log(await test.get("/students"));
 
-import CourseService from "./services/courseService.js";
 import StudentService from "./services/studentService.js";
+import CourseService from "./services/courseService.js";
+import InstructorService from "./services/instructorService.js";
+import EmployeeService from "./services/employeeService.js";
 import DataTable from "./components/DataTable.js";
 import Pagination from "./components/Pagination.js";
 import Navbar from "./components/navbar.js";
@@ -77,27 +79,91 @@ pagination.renderContainer();
 
 // 1) Create instances
 const studentService = new StudentService();
+const courseService = new CourseService();
+const instructorService = new InstructorService();
+const employeeService = new EmployeeService();
 const table = dataTable;
 
 // Config
 let currentPage = 1;
 const pageSize = 10;
+let currentEntity = "students"; // For future extension to courses, employees, etc.
+const columnsConfig = {
+  students: [
+    { key: "id", label: "ID" },
+    { key: "name", label: "Name" },
+    { key: "email", label: "Email" },
+    { key: "phone", label: "Phone" },
+    { key: "age", label: "Age" },
+    { key: "courses", label: "Courses" },
+    { key: "department", label: "Department" },
+  ],
+  courses: [
+    { key: "id", label: "ID" },
+    { key: "name", label: "Name" },
+    { key: "code", label: "Code" },
+  ],
+  instructors: [
+    { key: "id", label: "ID" },
+    { key: "name", label: "Name" },
+    { key: "email", label: "Email" },
+    { key: "age", label: "Age" },
+    { key: "department", label: "Department" },
+    { key: "assignedCourses", label: "Assigned Courses" },
+  ],
+  employees: [
+    { key: "id", label: "ID" },
+    { key: "name", label: "Name" },
+    { key: "email", label: "Email" },
+    { key: "age", label: "Age" },
+    { key: "position", label: "Position" },
+  ],
+};
 
-// 2) Configure table columns
-table.setColumns([
-  { key: "id", label: "ID" },
-  { key: "name", label: "Name" },
-  { key: "email", label: "Email" },
-  { key: "phone", label: "Phone" },
-  { key: "age", label: "Age" },
-  { key: "courses", label: "Courses" },
-  { key: "department", label: "Department" },
-]);
-
+table.setColumns(columnsConfig["students"]);
+// 2) work with nav tabs to change currentEntity and reload data accordingly (not implemented yet, but you can add event listeners to navbar tabs to set currentEntity and call loadPage(1) to reset to first page)
+let navTabs = document.querySelectorAll("#main-tabs .nav-link");
+let pageTitle = document.querySelector("#page-title");
+navTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    // Update active class
+    navTabs.forEach((t) => t.classList.remove("active"));
+    tab.classList.add("active");
+    // Update current entity based on data attribute
+    currentEntity = tab.getAttribute("data-entity");
+    // Update page title
+    pageTitle.textContent = currentEntity.charAt(0).toUpperCase() + currentEntity.slice(1);
+    // Update table columns based on selected entity
+    table.setColumns(columnsConfig[currentEntity ?? "students"]);
+    console.log(currentEntity);
+    // Reset to first page and load data for the selected entity
+    currentPage = 1;
+    loadPage(currentPage, currentEntity);
+    
+  });
+});
 // 3) Load one page and render table + pagination
-async function loadPage(page) {
+async function loadPage(page, currentEntity = "students") {
+  let result;
   try {
-    const result = await studentService.getStudentPage(page, pageSize);
+    switch (currentEntity) {
+      case "students":
+        result = await studentService.getStudentPage(page, pageSize);
+        break;
+      case "courses":
+        result = await courseService.getCoursePage(page, pageSize);
+        break;
+      case "instructors":
+        result = await instructorService.getInstructorPage(page, pageSize);
+        break;
+      case "employees":
+        result = await employeeService.getEmployeePage(page, pageSize);
+        break;
+      default:
+        console.error("Unknown entity:", currentEntity);
+        return;
+    }
+
     // result: { data, total, totalPages, currentPage, hasNext, hasPrev }
 
     console.log("Loaded page data:", result);
@@ -122,7 +188,7 @@ async function loadPage(page) {
 // 4) Hook pagination -> when user changes page, reload
 pagination.onPageChange = (newPage) => {
   currentPage = newPage;
-  loadPage(currentPage);
+  loadPage(currentPage,currentEntity);
 };
 
 // 5) Optional: hook edit/delete & sort for extra testing

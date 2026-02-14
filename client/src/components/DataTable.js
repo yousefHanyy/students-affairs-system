@@ -42,7 +42,7 @@ class DataTable {
 
       <!-- Table card -->
       <div class="card">
-        <div class="card-body p-0">
+        <div class="card-body p-2">
           <div class="table-responsive">
             <table class="table table-hover mb-0 align-middle">
               <thead class="table-light" id="table-head">
@@ -132,6 +132,8 @@ class DataTable {
           }
 
           td.appendChild(select);
+        } else if (col.key === "assignedCourses" || Array.isArray(value)) {
+          td.textContent = value[0]?.courseName || "No courses assigned";
         } else {
           // Handle other columns normally
           td.textContent = Array.isArray(value) ? value.join(", ") : value;
