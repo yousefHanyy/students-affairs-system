@@ -19,28 +19,28 @@ class Navbar {
           <li class="nav-item">
             <button
               class="nav-link active"
-              data-entity="student"
+              data-entity="students"
               id="tab-students"
             >
               Students
             </button>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-entity="course" id="tab-courses">
+            <button class="nav-link" data-entity="courses" id="tab-courses">
               Courses
             </button>
           </li>
           <li class="nav-item">
             <button
               class="nav-link"
-              data-entity="instructor"
+              data-entity="instructors"
               id="tab-instructors"
             >
               Instructors
             </button>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-entity="employee" id="tab-employees">
+            <button class="nav-link" data-entity="employees" id="tab-employees">
               Employees
             </button>
           </li>

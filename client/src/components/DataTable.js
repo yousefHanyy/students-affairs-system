@@ -132,6 +132,8 @@ class DataTable {
           }
 
           td.appendChild(select);
+        } else if (col.key === "assignedCourses" || Array.isArray(value)) {
+          td.textContent = value[0]?.courseName || "No courses assigned";
         } else {
           // Handle other columns normally
           td.textContent = Array.isArray(value) ? value.join(", ") : value;
