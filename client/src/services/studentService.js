@@ -20,9 +20,16 @@ export default class StudentService extends BaseApi {
 
     const enriched = studentsArray.map((student) => {
       if (student.courses && Array.isArray(student.courses)) {
-        student.courses = courses
-          .filter((c) => student.courses.includes(c.id))
-          .map((c) => c.name);
+        // Store original course IDs before transformation
+        const courseIds = student.courses;
+
+        // Create new object with transformed courses
+        return {
+          ...student,
+          courses: courses
+            .filter((c) => courseIds.includes(c.id))
+            .map((c) => c.name),
+        };
       }
       return student;
     });
@@ -84,14 +91,14 @@ export default class StudentService extends BaseApi {
     params.set("_page", String(page));
     params.set("_limit", String(perPage));
 
-    const { data, headers } = await this.getWithHeaders(
+    let { data, headers } = await this.getWithHeaders(
       `${this.endpoint}?${params.toString()}`,
     );
     const total = Number(headers.get("X-Total-Count") ?? "0");
     const totalPages = Math.ceil(total / perPage);
     const hasNext = page < totalPages;
     const hasPrev = page > 1;
-
+    data = await this.studentsWithCoursesNames(data);
     return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
   }
 

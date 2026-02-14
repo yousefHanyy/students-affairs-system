@@ -62,19 +62,20 @@ const pageSize = 10;
 
 // 2) Configure table columns
 table.setColumns([
-  { key: "id", label: "ID", sortable: true },
-  { key: "name", label: "Name", sortable: true },
-  { key: "email", label: "Email", sortable: true },
-  { key: "phone", label: "Phone", sortable: true },
-  { key: "age", label: "Age", sortable: true },
-  { key: "department", label: "Department", sortable: true },
+  { key: "id", label: "ID" },
+  { key: "name", label: "Name" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+  { key: "age", label: "Age" },
+  { key: "courses", label: "Courses" },
+  { key: "department", label: "Department" },
 ]);
 
 // 3) Load one page and render table + pagination
 async function loadPage(page) {
   const result = await studentService.getStudentPage(page, pageSize);
   // result: { data, total, totalPages, currentPage, hasNext, hasPrev }
-
+  console.log(result)
   // Render table rows
   table.renderRows(result.data);
 

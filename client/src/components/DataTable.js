@@ -1,6 +1,11 @@
 // Data Table Component for displaying tabular data with sorting, and searching features.
 class DataTable {
-  constructor(tableHeadId = "#table-head", tableBodyId = "#table-body") {
+  constructor(
+    containerSelector = "#datatable-container",
+    tableHeadId = "#table-head",
+    tableBodyId = "#table-body",
+  ) {
+    this.container = document.querySelector(containerSelector);
     this.bodyElement = document.querySelector(tableBodyId);
     this.headElement = document.querySelector(tableHeadId);
     this.currentSortField = "id";
@@ -10,6 +15,56 @@ class DataTable {
     this.onSortChange = null;
     this.columns = [];
   }
+
+  renderTableContainer() {
+    const containerHTML = `
+      <!-- Filters row -->
+      <div class="row mb-3 g-2">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input
+              id="search-input"
+              type="text"
+              class="form-control"
+              placeholder="Search..."
+            />
+          </div>
+        </div>
+        <div class="col-md-3 ms-auto text-md-end">
+          <select id="page-size" class="form-select">
+            <option value="5">5 per page</option>
+            <option value="10" selected>10 per page</option>
+            <option value="20">20 per page</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table card -->
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+              <thead class="table-light" id="table-head">
+                <!-- DataTable.js will render headers -->
+              </thead>
+              <tbody id="table-body">
+                <!-- DataTable.js will render rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    `;
+
+    if (this.container) {
+      this.container.innerHTML = containerHTML;
+      // Re-query the elements after rendering
+      this.bodyElement = document.querySelector("#table-body");
+      this.headElement = document.querySelector("#table-head");
+    }
+  }
+
   //I receive column data in this function to render headers based on it.
   setColumns(columns) {
     //data expected will be in this format:
@@ -53,7 +108,37 @@ class DataTable {
 
       this.columns.forEach((col) => {
         const td = document.createElement("td");
-        td.textContent = item[col.key];
+        const value = item[col.key];
+
+        console.log(col.key, value);
+
+        // Special handling for courses column - create a dropdown
+        if (col.key === "courses" && Array.isArray(value)) {
+          const select = document.createElement("select");
+          select.className = "form-select form-select-sm";
+
+          // Add all courses as options
+          value.forEach((course) => {
+            const option = document.createElement("option");
+            option.textContent = course;
+            option.value = course;
+            select.appendChild(option);
+          });
+
+          // If no courses, show message
+          if (value.length === 0) {
+            const option = document.createElement("option");
+            option.textContent = "No courses";
+            option.disabled = true;
+            select.appendChild(option);
+          }
+
+          td.appendChild(select);
+        } else {
+          // Handle other columns normally
+          td.textContent = Array.isArray(value) ? value.join(", ") : value;
+        }
+
         tr.appendChild(td);
       });
 
