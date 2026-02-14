@@ -3,16 +3,37 @@
 // Get, Add new student, Edit student, Delete student, Paginate students, Search students, Sort students.
 
 import Student from "../models/Student.js";
+import CourseService from "./courseService.js";
 //NOTE: We could implement get with headers in BaseApi which is cleaner
 import BaseApi from "../api/baseApi.js";
 export default class StudentService extends BaseApi {
   constructor() {
     super();
     this.endpoint = "/students";
+    this.courseService = new CourseService();
   }
+
+  // Helper method to replace course IDs with course names
+  async studentsWithCoursesNames(students) {
+    const courses = await this.courseService.getAllCourses();
+    const studentsArray = Array.isArray(students) ? students : [students];
+
+    const enriched = studentsArray.map((student) => {
+      if (student.courses && Array.isArray(student.courses)) {
+        student.courses = courses
+          .filter((c) => student.courses.includes(c.id))
+          .map((c) => c.name);
+      }
+      return student;
+    });
+
+    return Array.isArray(students) ? enriched : enriched[0];
+  }
+
   //UC-01 View list of records
-  getAllStudents() {
-    return this.get(this.endpoint);
+  async getAllStudents() {
+    const students = await this.get(this.endpoint);
+    return this.studentsWithCoursesNames(students);
   }
   //UC-02 Add new record
   async addStudent(name, email, phone, age, department, courses = []) {
@@ -82,7 +103,8 @@ export default class StudentService extends BaseApi {
   getSortedStudents(sortBy = "name", order = "asc") {
     return this.get(`/students?_sort=${sortBy}&_order=${order}`);
   }
-  getStudentById(id) {
-    return this.get(`${this.endpoint}/${id}`);
+  async getStudentById(id) {
+    const student = await this.get(`${this.endpoint}/${id}`);
+    return this.studentsWithCoursesNames(student);
   }
 }
