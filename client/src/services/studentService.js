@@ -19,15 +19,16 @@ export default class StudentService extends BaseApi {
 
     const enriched = studentsArray.map((student) => {
       if (student.courses && Array.isArray(student.courses)) {
-        // Save original IDs before any transformation
         const originalCourseIds = [...student.courses];
 
-        // Return NEW object with transformed courses
+        // Convert course.id to Number for comparison
+        const matched = courses.filter((c) =>
+          originalCourseIds.includes(Number(c.id)),
+        );
+
         return {
           ...student,
-          courses: courses
-            .filter((c) => originalCourseIds.includes(c.id))
-            .map((c) => c.name),
+          courses: matched.map((c) => c.name),
         };
       }
       return student;
