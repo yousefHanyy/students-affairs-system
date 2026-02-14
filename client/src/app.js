@@ -4,13 +4,6 @@
 // Handles navigation between different sections (Students, Courses, Instructors, Employees).
 // Coordinates between services and components.
 // Sets up event listeners for the navigation menu.
-
-//* import BaseApi from "./api/baseApi.js";
-
-//* let test = new BaseApi();
-
-//* console.log(await test.get("/students"));
-
 import StudentService from "./services/studentService.js";
 import CourseService from "./services/courseService.js";
 import InstructorService from "./services/instructorService.js";
@@ -40,42 +33,6 @@ form.renderToolbar("#toolbar-container");
 form.renderModal();
 dataTable.renderTableContainer();
 pagination.renderContainer();
-
-//test add student
-// console.log(await new StudentService().addStudent("John Doe", "john.doe@student.edu.eg", "01012345678", 20, "Computer Science", [1, 2, 3]));
-//test edit student
-// let student = await new StudentService().getStudentById(1);
-// console.log(student);
-// let courses = await new CourseService().getAllCourses();
-// console.log(courses);
-// student.courses = courses
-//   .filter((c) => {
-//     if (student.courses.includes(c.id)) return c;
-//   })
-//   .map((c) => c.name);
-// console.log(student);
-// student.name = "medhat mansour";
-// console.log(await new StudentService().editStudent(student))
-//test delete student
-// console.log(await new StudentService().deleteStudent(31));
-//test get all students
-// console.log(await new StudentService().getAllStudents());
-// console.log(await new StudentService().getStudentById(1));
-// console.log(await new StudentService().searchStudentsByName("Adel Mansour"));
-// console.log(await new StudentService().getSortedStudents("email", "desc"));
-// console.log(await new StudentService().getSortedStudents());
-// console.log(await new StudentService().getStudentsPaginated());
-// console.log(await new StudentService().getStudentsPaginated(2, 15));
-// import StudentService from "./services/studentService.js";
-// console.log(await new StudentService().getAllStudents());
-// console.log(await new StudentService().getStudentPageWithSearch(2, 15));
-//-----------------------------
-//*Testing DataTable Component:
-
-// No need for DOMContentLoaded - modules are deferred by default
-// 1) Create DataTable instance;
-
-// ---------- TEST: DataTable + Pagination with real students ----------
 
 // 1) Create instances
 const studentService = new StudentService();
@@ -208,11 +165,6 @@ async function loadPage(page, currentEntity = "students") {
         console.error("Unknown entity:", currentEntity);
         return;
     }
-
-    // result: { data, total, totalPages, currentPage, hasNext, hasPrev }
-
-    console.log("Loaded page data:", result);
-    console.log("First student courses:", result.data[0]?.courses);
 
     // Render table rows
     table.renderRows(result.data);

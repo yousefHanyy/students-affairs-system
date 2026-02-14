@@ -104,6 +104,16 @@ class DataTable {
 
   renderRows(items) {
     this.bodyElement.innerHTML = "";
+    if (items.length === 0) {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = this.columns.length + 1;
+      td.classList.add("text-center", "text-muted");
+      td.textContent = "No data available";
+      tr.appendChild(td);
+      this.bodyElement.appendChild(tr);
+      return;
+    }
 
     items.forEach((item) => {
       const tr = document.createElement("tr");
