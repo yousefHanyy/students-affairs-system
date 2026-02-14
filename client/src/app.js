@@ -15,9 +15,9 @@ import StudentService from "./services/studentService.js";
 import CourseService from "./services/courseService.js";
 import InstructorService from "./services/instructorService.js";
 import EmployeeService from "./services/employeeService.js";
+import Navbar from "./components/Navbar.js";
 import DataTable from "./components/DataTable.js";
 import Pagination from "./components/Pagination.js";
-import Navbar from "./components/navbar.js";
 import Form from "./components/Form.js";
 
 // Initialize components
@@ -86,7 +86,7 @@ const table = dataTable;
 
 // Config
 let currentPage = 1;
-const pageSize = 10;
+let pageSize = 10;
 let currentEntity = "students"; // For future extension to courses, employees, etc.
 const columnsConfig = {
   students: [
@@ -217,3 +217,13 @@ table.onSortChange = async (field, order) => {
 
 // 6) Initial load
 loadPage(currentPage);
+
+// 7) Hook page size selector
+const pageSizeSelect = document.querySelector("#page-size");
+if (pageSizeSelect) {
+  pageSizeSelect.addEventListener("change", (event) => {
+    pageSize = parseInt(event.target.value);
+    currentPage = 1; // Reset to first page
+    loadPage(currentPage, currentEntity);
+  });
+}
