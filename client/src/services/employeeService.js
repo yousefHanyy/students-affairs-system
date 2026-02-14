@@ -42,15 +42,15 @@ export default class EmployeeService extends BaseApi {
     return this.delete(`${this.endpoint}/${id}`);
   }
 
-  //UC-05 Paginate records
-  async getEmployeePage(page = 1, perPage = 10) {
+  //UC-05 Paginate records & UC-06 Search records
+  async getEmployeePageWithSearch(page = 1, perPage = 10, query = "") {
     const params = new URLSearchParams();
     params.set("_page", String(page));
     params.set("_limit", String(perPage));
     params.set("role", "employee");
 
-    const { data, headers } = await this.getWithHeaders(
-      `${this.endpoint}?${params.toString()}`,
+    let { data, headers } = await this.getWithHeaders(
+      `${this.endpoint}?${params.toString()}&role=employee&name_like=${query}`,
     );
     const total = Number(headers.get("X-Total-Count") ?? "0");
     const totalPages = Math.ceil(total / perPage);
@@ -58,11 +58,6 @@ export default class EmployeeService extends BaseApi {
     const hasPrev = page > 1;
 
     return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
-  }
-
-  //UC-06 Search records
-  searchEmployeesByName(query) {
-    return this.get(`${this.endpoint}?role=employee&name_like=${query}`);
   }
 
   //UC-07 Sort records

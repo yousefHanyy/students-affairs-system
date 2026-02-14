@@ -18,40 +18,42 @@ class DataTable {
 
   renderTableContainer() {
     const containerHTML = `
-      <!-- Filters row -->
-      <div class="row mb-3 g-2">
-        <div class="col-md-6">
-          <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
-            <input
-              id="search-input"
-              type="text"
-              class="form-control"
-              placeholder="Search..."
-            />
+      <div class="container-fluid">
+        <!-- Filters row -->
+        <div class="row mb-3 g-2">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <input
+                id="search-input"
+                type="text"
+                class="form-control"
+                placeholder="Search..."
+              />
+            </div>
+          </div>
+          <div class="col-md-3 ms-auto text-md-end">
+            <select id="page-size" class="form-select">
+              <option value="5">5 per page</option>
+              <option value="10" selected>10 per page</option>
+              <option value="20">20 per page</option>
+            </select>
           </div>
         </div>
-        <div class="col-md-3 ms-auto text-md-end">
-          <select id="page-size" class="form-select">
-            <option value="5">5 per page</option>
-            <option value="10" selected>10 per page</option>
-            <option value="20">20 per page</option>
-          </select>
-        </div>
-      </div>
 
-      <!-- Table card -->
-      <div class="card">
-        <div class="card-body p-2">
-          <div class="table-responsive">
-            <table class="table table-hover mb-0 align-middle">
-              <thead class="table-light" id="table-head">
-                <!-- DataTable.js will render headers -->
-              </thead>
-              <tbody id="table-body">
-                <!-- DataTable.js will render rows -->
-              </tbody>
-            </table>
+        <!-- Table card -->
+        <div class="card">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light" id="table-head">
+                  <!-- DataTable.js will render headers -->
+                </thead>
+                <tbody id="table-body">
+                  <!-- DataTable.js will render rows -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

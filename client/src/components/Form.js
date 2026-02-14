@@ -63,12 +63,14 @@ class Form {
   renderToolbar(toolbarContainerId = "#toolbar-container") {
     const toolbarContainer = document.querySelector(toolbarContainerId);
     const toolbarHTML = `
-      <!-- Toolbar: title + add button -->
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h4 mb-0" id="page-title">Students</h2>
-        <button id="btn-add" class="btn btn-primary">
-          <i class="bi bi-plus-lg"></i> Add
-        </button>
+      <div class="container-fluid">
+        <!-- Toolbar: title + add button -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h4 mb-0" id="page-title">Students</h2>
+          <button id="btn-add" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Add
+          </button>
+        </div>
       </div>
     `;
     if (toolbarContainer) {

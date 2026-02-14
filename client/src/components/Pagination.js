@@ -15,12 +15,14 @@ class Pagination {
 
   renderContainer() {
     const containerHTML = `
-      <!-- Pagination row -->
-      <div class="d-flex justify-content-between align-items-center mt-3">
-        <small id="pagination-info" class="text-muted"></small>
-        <nav>
-          <ul id="pagination" class="pagination mb-0"></ul>
-        </nav>
+      <div class="container-fluid pb-3">
+        <!-- Pagination row -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <small id="pagination-info" class="text-muted"></small>
+          <nav>
+            <ul id="pagination" class="pagination mb-0"></ul>
+          </nav>
+        </div>
       </div>
     `;
     if (this.paginationContainer) {
@@ -39,6 +41,7 @@ class Pagination {
 
     this.paginationNavElm.innerHTML = "";
 
+    // Previous button
     const prevLi = document.createElement("li");
     prevLi.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
     prevLi.innerHTML = `<button class="page-link">Previous</button>`;
@@ -48,14 +51,64 @@ class Pagination {
     });
     this.paginationNavElm.appendChild(prevLi);
 
+    // Page numbers
+    const maxVisiblePages = 3; // Maximum number of page numbers to show
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    // Adjust if we're near the end
+    if (endPage - startPage < maxVisiblePages - 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    // First page + ellipsis if needed
+    if (startPage > 1) {
+      this._createPageButton(1);
+      if (startPage > 2) {
+        const ellipsisLi = document.createElement("li");
+        ellipsisLi.className = "page-item disabled";
+        ellipsisLi.innerHTML = `<span class="page-link">...</span>`;
+        this.paginationNavElm.appendChild(ellipsisLi);
+      }
+    }
+
+    // Page number buttons
+    for (let i = startPage; i <= endPage; i++) {
+      this._createPageButton(i);
+    }
+
+    // Ellipsis + last page if needed
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        const ellipsisLi = document.createElement("li");
+        ellipsisLi.className = "page-item disabled";
+        ellipsisLi.innerHTML = `<span class="page-link">...</span>`;
+        this.paginationNavElm.appendChild(ellipsisLi);
+      }
+      this._createPageButton(totalPages);
+    }
+
+    // Next button
     const nextLi = document.createElement("li");
-    nextLi.className = `page-item ${end === totalItems ? "disabled" : ""}`;
+    nextLi.className = `page-item ${currentPage >= totalPages ? "disabled" : ""}`;
     nextLi.innerHTML = `<button class="page-link">Next</button>`;
     nextLi.addEventListener("click", () => {
       if (currentPage < totalPages && this.onPageChange)
         this.onPageChange(currentPage + 1);
     });
     this.paginationNavElm.appendChild(nextLi);
+  }
+
+  _createPageButton(pageNum) {
+    const pageLi = document.createElement("li");
+    pageLi.className = `page-item ${pageNum === this.currentPage ? "active" : ""}`;
+    pageLi.innerHTML = `<button class="page-link">${pageNum}</button>`;
+    pageLi.addEventListener("click", () => {
+      if (this.onPageChange && pageNum !== this.currentPage) {
+        this.onPageChange(pageNum);
+      }
+    });
+    this.paginationNavElm.appendChild(pageLi);
   }
 }
 export default Pagination;
