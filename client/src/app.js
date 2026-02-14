@@ -13,6 +13,32 @@
 
 import CourseService from "./services/courseService.js";
 import StudentService from "./services/studentService.js";
+import DataTable from "./components/DataTable.js";
+import Pagination from "./components/Pagination.js";
+import Navbar from "./components/navbar.js";
+import Form from "./components/Form.js";
+
+// Initialize components
+const navbar = new Navbar("#navbar-container");
+const dataTable = new DataTable(
+  "#datatable-container",
+  "#table-head",
+  "#table-body",
+);
+const form = new Form("#modal-container");
+const pagination = new Pagination(
+  "#pagination-container",
+  "#pagination-info",
+  "#pagination",
+);
+
+// Render HTML components
+navbar.render();
+form.renderToolbar("#toolbar-container");
+form.renderModal();
+dataTable.renderTableContainer();
+pagination.renderContainer();
+
 //test add student
 // console.log(await new StudentService().addStudent("John Doe", "john.doe@student.edu.eg", "01012345678", 20, "Computer Science", [1, 2, 3]));
 //test edit student
@@ -46,15 +72,12 @@ import StudentService from "./services/studentService.js";
 
 // No need for DOMContentLoaded - modules are deferred by default
 // 1) Create DataTable instance;
-import DataTable from "./components/DataTable.js";
-import Pagination from "./components/Pagination.js";
 
 // ---------- TEST: DataTable + Pagination with real students ----------
 
 // 1) Create instances
 const studentService = new StudentService();
-const table = new DataTable("#table-head", "#table-body");
-const pagination = new Pagination("#pagination-info", "#pagination");
+const table = dataTable;
 
 // Config
 let currentPage = 1;
@@ -73,19 +96,27 @@ table.setColumns([
 
 // 3) Load one page and render table + pagination
 async function loadPage(page) {
-  const result = await studentService.getStudentPage(page, pageSize);
-  // result: { data, total, totalPages, currentPage, hasNext, hasPrev }
-  console.log(result)
-  // Render table rows
-  table.renderRows(result.data);
+  try {
+    const result = await studentService.getStudentPage(page, pageSize);
+    // result: { data, total, totalPages, currentPage, hasNext, hasPrev }
 
-  // Render pagination UI
-  pagination.render(
-    result.currentPage,
-    result.totalPages,
-    result.total,
-    pageSize,
-  );
+    console.log("Loaded page data:", result);
+    console.log("First student courses:", result.data[0]?.courses);
+
+    // Render table rows
+    table.renderRows(result.data);
+
+    // Render pagination UI
+    pagination.render(
+      result.currentPage,
+      result.totalPages,
+      result.total,
+      pageSize,
+    );
+  } catch (error) {
+    console.error("Error loading page:", error);
+    alert("Error loading data: " + error.message);
+  }
 }
 
 // 4) Hook pagination -> when user changes page, reload

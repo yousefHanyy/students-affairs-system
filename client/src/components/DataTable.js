@@ -110,8 +110,6 @@ class DataTable {
         const td = document.createElement("td");
         const value = item[col.key];
 
-        console.log(col.key, value);
-
         // Special handling for courses column - create a dropdown
         if (col.key === "courses" && Array.isArray(value)) {
           const select = document.createElement("select");

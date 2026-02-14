@@ -1,14 +1,33 @@
 // Pagination Component for handling page navigation in data tables.
 class Pagination {
   constructor(
+    paginationContainerId = "#pagination-container",
     paginationInfoId = "#pagination-info",
     paginationNavId = "#pagination",
   ) {
+    this.paginationContainer = document.querySelector(paginationContainerId);
     this.paginationInfoElm = document.querySelector(paginationInfoId);
     this.paginationNavElm = document.querySelector(paginationNavId);
     this.onPageChange = null;
     this.currentPage = 1;
     this.totalPages = 1;
+  }
+
+  renderContainer() {
+    const containerHTML = `
+      <!-- Pagination row -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <small id="pagination-info" class="text-muted"></small>
+        <nav>
+          <ul id="pagination" class="pagination mb-0"></ul>
+        </nav>
+      </div>
+    `;
+    if (this.paginationContainer) {
+      this.paginationContainer.innerHTML = containerHTML;
+      this.paginationInfoElm = document.querySelector("#pagination-info");
+      this.paginationNavElm = document.querySelector("#pagination");
+    }
   }
   render(currentPage, totalPages, totalItems, pageSize) {
     this.currentPage = currentPage;

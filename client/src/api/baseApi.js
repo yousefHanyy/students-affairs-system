@@ -4,6 +4,7 @@ class BaseApi {
   constructor(baseURL = "http://localhost:3000") {
     this.baseURL = baseURL;
   }
+
   //Get method:
   async get(endpoint) {
     try {
@@ -17,6 +18,7 @@ class BaseApi {
       throw error;
     }
   }
+
   //Get for pagination(returns both data and headers for pagination):
   async getWithHeaders(endpoint) {
     try {
@@ -32,6 +34,7 @@ class BaseApi {
       throw error;
     }
   }
+
   //Post method (create):
   async post(endpoint, data) {
     try {
@@ -51,6 +54,7 @@ class BaseApi {
       throw error;
     }
   }
+
   //Put method (update):
   async put(endpoint, data) {
     try {
@@ -70,6 +74,7 @@ class BaseApi {
       throw error;
     }
   }
+
   //Delete method:
   async delete(endpoint) {
     try {

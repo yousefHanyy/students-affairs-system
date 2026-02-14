@@ -4,7 +4,6 @@
 
 import Student from "../models/Student.js";
 import CourseService from "./courseService.js";
-//NOTE: We could implement get with headers in BaseApi which is cleaner
 import BaseApi from "../api/baseApi.js";
 export default class StudentService extends BaseApi {
   constructor() {
@@ -13,21 +12,21 @@ export default class StudentService extends BaseApi {
     this.courseService = new CourseService();
   }
 
-  // Helper method to replace course IDs with course names
+  // method to replace course IDs with course names
   async studentsWithCoursesNames(students) {
     const courses = await this.courseService.getAllCourses();
     const studentsArray = Array.isArray(students) ? students : [students];
 
     const enriched = studentsArray.map((student) => {
       if (student.courses && Array.isArray(student.courses)) {
-        // Store original course IDs before transformation
-        const courseIds = student.courses;
+        // Save original IDs before any transformation
+        const originalCourseIds = [...student.courses];
 
-        // Create new object with transformed courses
+        // Return NEW object with transformed courses
         return {
           ...student,
           courses: courses
-            .filter((c) => courseIds.includes(c.id))
+            .filter((c) => originalCourseIds.includes(c.id))
             .map((c) => c.name),
         };
       }
@@ -94,22 +93,35 @@ export default class StudentService extends BaseApi {
     let { data, headers } = await this.getWithHeaders(
       `${this.endpoint}?${params.toString()}`,
     );
+
+    // Enrich data with course names
+    data = await this.studentsWithCoursesNames(data);
+
     const total = Number(headers.get("X-Total-Count") ?? "0");
     const totalPages = Math.ceil(total / perPage);
     const hasNext = page < totalPages;
     const hasPrev = page > 1;
-    data = await this.studentsWithCoursesNames(data);
-    return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
+
+    return {
+      data,
+      total,
+      totalPages,
+      currentPage: page,
+      hasNext,
+      hasPrev,
+    };
   }
 
   //UC-06 Search records
   searchStudentsByName(query) {
     return this.get(`/students?name_like=${query}`);
   }
+
   //UC-07 Sort records
   getSortedStudents(sortBy = "name", order = "asc") {
     return this.get(`/students?_sort=${sortBy}&_order=${order}`);
   }
+
   async getStudentById(id) {
     const student = await this.get(`${this.endpoint}/${id}`);
     return this.studentsWithCoursesNames(student);
