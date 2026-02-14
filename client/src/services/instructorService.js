@@ -9,10 +9,12 @@ export default class InstructorService extends BaseApi {
     super();
     this.endpoint = "/employees";
   }
+
   //UC-01 View list of records
   getAllInstructors() {
     return this.get(`${this.endpoint}?role=instructor`);
   }
+
   //UC-02 Add new record
   async addInstructor(name, email, age, department, assignedCourses = []) {
     const instructor = new Instructor(
@@ -76,10 +78,14 @@ export default class InstructorService extends BaseApi {
   searchInstructorsByName(query) {
     return this.get(`${this.endpoint}?role=instructor&name_like=${query}`);
   }
+
   //UC-07 Sort records
   getSortedInstructors(sortBy = "name", order = "asc") {
-    return this.get(`${this.endpoint}?role=instructor&_sort=${sortBy}&_order=${order}`);
+    return this.get(
+      `${this.endpoint}?role=instructor&_sort=${sortBy}&_order=${order}`,
+    );
   }
+
   getInstructorById(id) {
     return this.get(`${this.endpoint}/${id}`);
   }

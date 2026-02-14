@@ -13,6 +13,32 @@
 
 import CourseService from "./services/courseService.js";
 import StudentService from "./services/studentService.js";
+import DataTable from "./components/DataTable.js";
+import Pagination from "./components/Pagination.js";
+import Navbar from "./components/navbar.js";
+import Form from "./components/Form.js";
+
+// Initialize components
+const navbar = new Navbar("#navbar-container");
+const dataTable = new DataTable(
+  "#datatable-container",
+  "#table-head",
+  "#table-body",
+);
+const form = new Form("#modal-container");
+const pagination = new Pagination(
+  "#pagination-container",
+  "#pagination-info",
+  "#pagination",
+);
+
+// Render HTML components
+navbar.render();
+form.renderToolbar("#toolbar-container");
+form.renderModal();
+dataTable.renderTableContainer();
+pagination.renderContainer();
+
 //test add student
 // console.log(await new StudentService().addStudent("John Doe", "john.doe@student.edu.eg", "01012345678", 20, "Computer Science", [1, 2, 3]));
 //test edit student
@@ -45,20 +71,8 @@ import StudentService from "./services/studentService.js";
 //*Testing DataTable Component:
 
 // No need for DOMContentLoaded - modules are deferred by default
-// 1) Create DataTable instance;
-import DataTable from "./components/DataTable.js";
-import Pagination from "./components/Pagination.js";
-
-// ---------- TEST: DataTable + Pagination with real students ----------
-
-// 1) Create instances
-const studentService = new StudentService();
+// 1) Create DataTable instance
 const table = new DataTable("#table-head", "#table-body");
-const pagination = new Pagination("#pagination-info", "#pagination");
-
-// Config
-let currentPage = 1;
-const pageSize = 10;
 
 // 2) Configure table columns
 table.setColumns([
@@ -68,32 +82,16 @@ table.setColumns([
   { key: "phone", label: "Phone", sortable: true },
   { key: "age", label: "Age", sortable: true },
   { key: "department", label: "Department", sortable: true },
+  { key: "courses", label: "Courses", sortable: false },
 ]);
 
-// 3) Load one page and render table + pagination
-async function loadPage(page) {
-  const result = await studentService.getStudentPage(page, pageSize);
-  // result: { data, total, totalPages, currentPage, hasNext, hasPrev }
+// 3) Provide some fake data
+const fakeStudents = await new StudentService().getAllStudents();
 
-  // Render table rows
-  table.renderRows(result.data);
+// 4) Render rows
+table.renderRows(fakeStudents);
 
-  // Render pagination UI
-  pagination.render(
-    result.currentPage,
-    result.totalPages,
-    result.total,
-    pageSize,
-  );
-}
-
-// 4) Hook pagination -> when user changes page, reload
-pagination.onPageChange = (newPage) => {
-  currentPage = newPage;
-  loadPage(currentPage);
-};
-
-// 5) Optional: hook edit/delete & sort for extra testing
+// 5) Hook callbacks to see if buttons and sort work
 table.onEdit = (item) => {
   console.log("EDIT clicked:", item);
   alert(`Edit ${item.name}`);

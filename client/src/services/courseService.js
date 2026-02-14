@@ -9,10 +9,12 @@ export default class CourseService extends BaseApi {
     super();
     this.endpoint = "/courses";
   }
+
   //UC-01 View list of records
-  getAllCourses() {
+  async getAllCourses() {
     return this.get(this.endpoint);
   }
+
   //UC-02 Add new record
   async addCourse(name, code) {
     const course = new Course(null, name, code);
@@ -61,10 +63,12 @@ export default class CourseService extends BaseApi {
   searchCoursesByName(query) {
     return this.get(`/courses?name_like=${query}`);
   }
+
   //UC-07 Sort records
   getSortedCourses(sortBy = "name", order = "asc") {
     return this.get(`/courses?_sort=${sortBy}&_order=${order}`);
   }
+
   getCourseById(id) {
     return this.get(`${this.endpoint}/${id}`);
   }

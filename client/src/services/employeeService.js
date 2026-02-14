@@ -9,10 +9,12 @@ export default class EmployeeService extends BaseApi {
     super();
     this.endpoint = "/employees";
   }
+
   //UC-01 View list of records
   getAllEmployees() {
     return this.get(`${this.endpoint}?role=employee`);
   }
+
   //UC-02 Add new record
   async addEmployee(name, email, age, role = "employee", position = null) {
     const employee = new Employee(null, name, email, age, role, position);
@@ -62,12 +64,14 @@ export default class EmployeeService extends BaseApi {
   searchEmployeesByName(query) {
     return this.get(`${this.endpoint}?role=employee&name_like=${query}`);
   }
+
   //UC-07 Sort records
   getSortedEmployees(sortBy = "name", order = "asc") {
     return this.get(
       `${this.endpoint}?role=employee&_sort=${sortBy}&_order=${order}`,
     );
   }
+
   getEmployeeById(id) {
     return this.get(`${this.endpoint}/${id}`);
   }
