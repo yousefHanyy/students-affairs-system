@@ -71,27 +71,61 @@ pagination.renderContainer();
 //*Testing DataTable Component:
 
 // No need for DOMContentLoaded - modules are deferred by default
-// 1) Create DataTable instance
-const table = new DataTable("#table-head", "#table-body");
+// 1) Create DataTable instance;
+
+// ---------- TEST: DataTable + Pagination with real students ----------
+
+// 1) Create instances
+const studentService = new StudentService();
+const table = dataTable;
+
+// Config
+let currentPage = 1;
+const pageSize = 10;
 
 // 2) Configure table columns
 table.setColumns([
-  { key: "id", label: "ID", sortable: true },
-  { key: "name", label: "Name", sortable: true },
-  { key: "email", label: "Email", sortable: true },
-  { key: "phone", label: "Phone", sortable: true },
-  { key: "age", label: "Age", sortable: true },
-  { key: "department", label: "Department", sortable: true },
-  { key: "courses", label: "Courses", sortable: false },
+  { key: "id", label: "ID" },
+  { key: "name", label: "Name" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+  { key: "age", label: "Age" },
+  { key: "courses", label: "Courses" },
+  { key: "department", label: "Department" },
 ]);
 
-// 3) Provide some fake data
-const fakeStudents = await new StudentService().getAllStudents();
+// 3) Load one page and render table + pagination
+async function loadPage(page) {
+  try {
+    const result = await studentService.getStudentPage(page, pageSize);
+    // result: { data, total, totalPages, currentPage, hasNext, hasPrev }
 
-// 4) Render rows
-table.renderRows(fakeStudents);
+    console.log("Loaded page data:", result);
+    console.log("First student courses:", result.data[0]?.courses);
 
-// 5) Hook callbacks to see if buttons and sort work
+    // Render table rows
+    table.renderRows(result.data);
+
+    // Render pagination UI
+    pagination.render(
+      result.currentPage,
+      result.totalPages,
+      result.total,
+      pageSize,
+    );
+  } catch (error) {
+    console.error("Error loading page:", error);
+    alert("Error loading data: " + error.message);
+  }
+}
+
+// 4) Hook pagination -> when user changes page, reload
+pagination.onPageChange = (newPage) => {
+  currentPage = newPage;
+  loadPage(currentPage);
+};
+
+// 5) Optional: hook edit/delete & sort for extra testing
 table.onEdit = (item) => {
   console.log("EDIT clicked:", item);
   alert(`Edit ${item.name}`);
