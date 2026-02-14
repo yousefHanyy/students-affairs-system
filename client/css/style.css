@@ -1,1 +1,9 @@
 /* Put Our Main Stayles Here */
+.sortable {
+  cursor: pointer;
+}
+.sortable .sort-icon {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-left: 4px;
+}
