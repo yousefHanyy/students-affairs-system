@@ -1,4 +1,5 @@
 // Navbar Component for navigation and tabs
+import logoImg from "../../public/logo.svg";
 class Navbar {
   constructor(navContainerId = "#navbar-container") {
     this.container = document.querySelector(navContainerId);
@@ -7,9 +8,10 @@ class Navbar {
   render() {
     const navbarHTML = `
       <!-- Top navbar -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-          <h1 class="navbar-brand">Students Affairs System</h1>
+        <h1 class="navbar-brand">Students Affairs System</h1>
+        <img src="${logoImg}" alt="Logo" width="50" height="50" class="d-inline-block align-text-top me-2">
         </div>
       </nav>
 

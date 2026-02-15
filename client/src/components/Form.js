@@ -386,7 +386,7 @@ class Form {
       <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h2 class="h4 mb-0" id="page-title">Students</h2>
-          <button id="btn-add" class="btn btn-primary">
+          <button id="btn-add" class="btn btn-success">
             <i class="bi bi-plus-lg"></i> Add
           </button>
         </div>
