@@ -193,31 +193,127 @@ pagination.onPageChange = (newPage) => {
 };
 
 // 5) Optional: hook edit/delete & sort for extra testing
+// table.onEdit = (item) => {
+//   console.log("EDIT clicked:", item);
+//   alert(`Edit ${item.name}`);
+// };
+
+// table.onDelete = (item) => {
+//   console.log("DELETE clicked:", item);
+//   alert(`Delete ${item.name}`);
+// };
+
+// table.onSortChange = async (field, order) => {
+//   console.log("SORT changed:", field, order);
+//   // If you want server‑side sort with pagination later, call a different service method.
+//   // For now, we just sort in memory the current page:
+//   const result = await studentService.getStudentPageWithSearch(
+//     currentPage,
+//     pageSize,
+//   );
+//   const sorted = [...result.data].sort((a, b) => {
+//     if (a[field] < b[field]) return order === "asc" ? -1 : 1;
+//     if (a[field] > b[field]) return order === "asc" ? 1 : -1;
+//     return 0;
+//   });
+//   table.renderRows(sorted);
+// };
+// 5) Hook Add/Edit/Delete with Form:
+form.onSubmit = async (model, action) => {
+  try {
+    switch (currentEntity) {
+      case "students":
+        if (action === "add") {
+          await studentService.addStudent(
+            model.name,
+            model.email,
+            model.phone,
+            model.age || null,
+            model.department,
+            model.courses || [],
+          );
+        } else {
+          await studentService.editStudent(model);
+        }
+        break;
+      case "courses":
+        if (action === "add") {
+          await courseService.addCourse(model.name, model.code);
+        } else {
+          await courseService.editCourse(model);
+        }
+        break;
+      case "instructors":
+        if (action === "add") {
+          await instructorService.addInstructor(
+            model.name,
+            model.email,
+            model.age,
+            model.department,
+            model.assignedCourses || [],
+          );
+        } else {
+          await instructorService.editInstructor(model);
+        }
+        break;
+      case "employees":
+        if (action === "add") {
+          await employeeService.addEmployee(
+            model.name,
+            model.email,
+            model.age,
+            "employee",
+            model.position,
+          );
+        } else {
+          await employeeService.editEmployee(model);
+        }
+        break;
+    }
+    await loadPage(currentPage, currentEntity);
+  } catch (error) {
+    alert(`Error ${action}ing: ${error}`);
+  }
+};
+
+// Edit
 table.onEdit = (item) => {
-  console.log("EDIT clicked:", item);
-  alert(`Edit ${item.name}`);
+  form.show(currentEntity, item);
 };
 
-table.onDelete = (item) => {
-  console.log("DELETE clicked:", item);
-  alert(`Delete ${item.name}`);
+// Delete
+table.onDelete = async (item) => {
+  if (confirm(`Delete ${item.name}?`)) {
+    try {
+      switch (currentEntity) {
+        case "students":
+          await studentService.deleteStudent(item.id);
+          break;
+        case "courses":
+          await courseService.deleteCourse(item.id);
+          break;
+        case "employees":
+          await employeeService.deleteEmployee(item.id);
+          break;
+        case "instructors":
+          await instructorService.deleteInstructor(item.id);
+          break;
+        // Add cases for instructors/employees when services ready
+      }
+      await loadPage(currentPage, currentEntity);
+    } catch (error) {
+      alert("Delete failed: " + error);
+    }
+  }
 };
 
-table.onSortChange = async (field, order) => {
-  console.log("SORT changed:", field, order);
-  // If you want server‑side sort with pagination later, call a different service method.
-  // For now, we just sort in memory the current page:
-  const result = await studentService.getStudentPageWithSearch(
-    currentPage,
-    pageSize,
-  );
-  const sorted = [...result.data].sort((a, b) => {
-    if (a[field] < b[field]) return order === "asc" ? -1 : 1;
-    if (a[field] > b[field]) return order === "asc" ? 1 : -1;
-    return 0;
-  });
-  table.renderRows(sorted);
-};
+// Add button handler
+document.addEventListener("click", (e) => {
+  //e.target.closest used for delegation instad of adding a click listener for every button
+  if (e.target.closest("#btn-add")) {
+    form.show(currentEntity);
+  }
+});
 
 // 6) Initial load
 loadPage(currentPage);
