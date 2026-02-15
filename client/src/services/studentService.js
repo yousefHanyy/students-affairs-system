@@ -56,7 +56,7 @@ export default class StudentService extends BaseApi {
     const validation = student.validate();
 
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
 
     return this.post(this.endpoint, student);
@@ -75,7 +75,7 @@ export default class StudentService extends BaseApi {
     );
     const validation = studentData.validate();
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
     return this.put(`${this.endpoint}/${id}`, studentData);
   }
@@ -113,10 +113,32 @@ export default class StudentService extends BaseApi {
     };
   }
 
-  //UC-07 Sort records
-  async getSortedStudents(sortBy = "name", order = "asc") {
-    let student = await this.get(`/students?_sort=${sortBy}&_order=${order}`);
-    return this.studentsWithCoursesNames(student);
+  //UC-07 Paginated server-side sort
+  async getSortedStudentsPage(
+    page = 1,
+    perPage = 10,
+    sortBy = "name",
+    order = "asc",
+    query = "",
+  ) {
+    const params = new URLSearchParams();
+    params.set("_page", String(page));
+    params.set("_limit", String(perPage));
+    params.set("_sort", sortBy);
+    params.set("_order", order);
+
+    let { data, headers } = await this.getWithHeaders(
+      `${this.endpoint}?${params.toString()}&name_like=${query}`,
+    );
+
+    data = await this.studentsWithCoursesNames(data);
+
+    const total = Number(headers.get("X-Total-Count") ?? "0");
+    const totalPages = Math.ceil(total / perPage);
+    const hasNext = page < totalPages;
+    const hasPrev = page > 1;
+
+    return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
   }
 
   async getStudentById(id) {

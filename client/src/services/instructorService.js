@@ -65,7 +65,7 @@ export default class InstructorService extends BaseApi {
     const validation = instructor.validate();
 
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
 
     return this.post(this.endpoint, instructor);
@@ -83,7 +83,7 @@ export default class InstructorService extends BaseApi {
     );
     const validation = instructorData.validate();
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
     return this.put(`${this.endpoint}/${id}`, instructorData);
   }
@@ -111,12 +111,32 @@ export default class InstructorService extends BaseApi {
     return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
   }
 
-  //UC-07 Sort records
-  async getSortedInstructors(sortBy = "name", order = "asc") {
-    let instructor = this.get(
-      `${this.endpoint}?role=instructor&_sort=${sortBy}&_order=${order}`,
+  //UC-07 Paginated server-side sort
+  async getSortedInstructorsPage(
+    page = 1,
+    perPage = 10,
+    sortBy = "name",
+    order = "asc",
+    query = "",
+  ) {
+    const params = new URLSearchParams();
+    params.set("_page", String(page));
+    params.set("_limit", String(perPage));
+    params.set("role", "instructor");
+    params.set("_sort", sortBy);
+    params.set("_order", order);
+
+    let { data, headers } = await this.getWithHeaders(
+      `${this.endpoint}?${params.toString()}&name_like=${query}`,
     );
-    return this.instructorWithCoursesNames(instructor);
+
+    data = await this.instructorWithCoursesNames(data);
+
+    const total = Number(headers.get("X-Total-Count") ?? "0");
+    const totalPages = Math.ceil(total / perPage);
+    const hasNext = page < totalPages;
+    const hasPrev = page > 1;
+    return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
   }
 
   async getInstructorById(id) {

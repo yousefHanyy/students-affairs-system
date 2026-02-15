@@ -2,17 +2,21 @@
 
 class Validators {
   static isNotEmpty(value) {
-    return value && value.trim().length > 0;
+    return value && typeof value === "string" && value.trim().length > 0;
+  }
+
+  static isValidName(name) {
+    return this.isNotEmpty(name) && !/^\d+$/.test(name.trim());
   }
 
   static isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return this.isNotEmpty(email) && emailRegex.test(email);
   }
 
   static isValidPhone(phone) {
     const phoneRegex = /^[0-9]{10,11}$/;
-    return phoneRegex.test(phone);
+    return this.isNotEmpty(phone) && phoneRegex.test(phone);
   }
 
   static isValidAge(age) {
@@ -20,90 +24,106 @@ class Validators {
   }
 
   static isValidArray(arr) {
-    return Array.isArray(arr);
+    return Array.isArray(arr) && arr.length > 0;
   }
 
   static isValidDate(dateString) {
-    if (!dateString) return false;
+    if (!this.isNotEmpty(dateString)) return false;
     const date = new Date(dateString);
-    return date instanceof Date && !isNaN(date);
+    return date instanceof Date && !isNaN(date.getTime());
   }
 
-  // Student fields: name, email, phone, age, department, courses
+  // Student fields: ALL REQUIRED - name, email, phone, age, department, courses
   static validateStudent(data) {
-    const errors = [];
-    if (!this.isNotEmpty(data.name)) errors.push("Student name is required");
-    if (data.email && !this.isValidEmail(data.email))
-      errors.push("Invalid email");
-    if (data.phone && !this.isValidPhone(data.phone))
-      errors.push("Invalid phone number");
-    if (data.age && !this.isValidAge(data.age)) errors.push("Invalid age");
+    const errors = {};
+    if (!this.isValidName(data.name))
+      errors.name = "Student name is required and cannot be only numbers";
+    if (!this.isValidEmail(data.email))
+      errors.email = "Valid student email is required";
+    if (!this.isValidPhone(data.phone))
+      errors.phone = "Valid student phone number is required";
+    if (!this.isValidAge(data.age))
+      errors.age = "Valid student age is required";
     if (!this.isNotEmpty(data.department))
-      errors.push("Department is required");
-    if (data.courses && !this.isValidArray(data.courses))
-      errors.push("Courses must be an array");
-    return { isValid: errors.length === 0, errors };
+      errors.department = "Department is required";
+    if (!this.isValidArray(data.courses))
+      errors.courses = "Courses array is required";
+    return { isValid: Object.keys(errors).length === 0, errors };
   }
 
-  // Course fields: name, code
+  // Course fields: ALL REQUIRED - name, code
   static validateCourse(data) {
-    const errors = [];
-    if (!this.isNotEmpty(data.name)) errors.push("Course name is required");
-    if (!this.isNotEmpty(data.code)) errors.push("Course code is required");
-    return { isValid: errors.length === 0, errors };
+    const errors = {};
+    if (!this.isValidName(data.name))
+      errors.name = "Course name is required and cannot be only numbers";
+    if (!this.isNotEmpty(data.code)) errors.code = "Course code is required";
+    return { isValid: Object.keys(errors).length === 0, errors };
   }
 
-  // Instructor fields: name, email, age, department, assignedCourses
-  // Note: Instructor extends Employee, so it inherits base validation
+  // Instructor fields: ALL REQUIRED - name, email, age, department, assignedCourses
   static validateInstructor(data) {
-    const errors = [];
-    if (!this.isNotEmpty(data.name)) errors.push("Instructor name is required");
-    if (data.email && !this.isValidEmail(data.email))
-      errors.push("Invalid email");
-    if (data.age && !this.isValidAge(data.age)) errors.push("Invalid age");
+    const errors = {};
+    if (!this.isValidName(data.name))
+      errors.name = "Instructor name is required and cannot be only numbers";
+    if (!this.isValidEmail(data.email))
+      errors.email = "Valid instructor email is required";
+    if (!this.isValidAge(data.age))
+      errors.age = "Valid instructor age is required";
     if (!this.isNotEmpty(data.department))
-      errors.push("Department is required");
-    if (data.assignedCourses) {
-      if (!this.isValidArray(data.assignedCourses)) {
-        errors.push("Assigned courses must be an array");
+      errors.department = "Department is required";
+
+    if (!data.assignedCourses || !this.isValidArray(data.assignedCourses)) {
+      errors.assignedCourses = "Assigned courses array is required";
+    } else {
+      const course = data.assignedCourses[0];
+      const assignedCoursesErrors = {};
+
+      if (!course.courseId) {
+        assignedCoursesErrors.courseId =
+          "Course ID is required for assigned course";
+      }
+
+      if (!this.isValidDate(course.startDate)) {
+        assignedCoursesErrors.startDate = "Valid start date is required";
       } else {
-        // Validate each assigned course object
-        data.assignedCourses.forEach((course, index) => {
-          if (!course.courseId) {
-            errors.push(
-              `Course ID is required for assigned course ${index + 1}`,
-            );
-          }
-          if (course.startDate && !this.isValidDate(course.startDate)) {
-            errors.push(`Invalid start date for assigned course ${index + 1}`);
-          }
-          if (course.endDate && !this.isValidDate(course.endDate)) {
-            errors.push(`Invalid end date for assigned course ${index + 1}`);
-          }
-          if (course.startDate && course.endDate) {
-            const start = new Date(course.startDate);
-            const end = new Date(course.endDate);
-            if (start >= end) {
-              errors.push(
-                `End date must be after start date for assigned course ${index + 1}`,
-              );
-            }
-          }
-        });
+        // Check if start date is before today
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const startDate = new Date(course.startDate);
+        if (startDate < today) {
+          assignedCoursesErrors.startDate = "Start date cannot be in the past";
+        }
+      }
+
+      if (!this.isValidDate(course.endDate)) {
+        assignedCoursesErrors.endDate = "Valid end date is required";
+      } else if (
+        this.isValidDate(course.startDate) &&
+        new Date(course.endDate) < new Date(course.startDate)
+      ) {
+        assignedCoursesErrors.endDate = "End date cannot be before start date";
+      }
+
+      if (Object.keys(assignedCoursesErrors).length > 0) {
+        errors.assignedCourses = assignedCoursesErrors;
       }
     }
-    return { isValid: errors.length === 0, errors };
+    return { isValid: Object.keys(errors).length === 0, errors };
   }
 
-  // Employee fields: name, email, age, position, role
+  // Employee fields: ALL REQUIRED - name, email, age, position, role
   static validateEmployee(data) {
-    const errors = [];
-    if (!this.isNotEmpty(data.name)) errors.push("Employee name is required");
-    if (data.email && !this.isValidEmail(data.email))
-      errors.push("Invalid email");
-    if (data.age && !this.isValidAge(data.age)) errors.push("Invalid age");
-    if (!this.isNotEmpty(data.position)) errors.push("Position is required");
-    return { isValid: errors.length === 0, errors };
+    const errors = {};
+    if (!this.isValidName(data.name))
+      errors.name = "Employee name is required and cannot be only numbers";
+    if (!this.isValidEmail(data.email))
+      errors.email = "Valid employee email is required";
+    if (!this.isValidAge(data.age))
+      errors.age = "Valid employee age is required";
+    if (!this.isNotEmpty(data.position))
+      errors.position = "Position is required";
+    if (!this.isNotEmpty(data.role)) errors.role = "Role is required";
+    return { isValid: Object.keys(errors).length === 0, errors };
   }
 }
 

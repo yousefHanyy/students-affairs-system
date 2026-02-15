@@ -21,7 +21,7 @@ export default class CourseService extends BaseApi {
     const validation = course.validate();
 
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
 
     return this.post(this.endpoint, course);
@@ -32,7 +32,7 @@ export default class CourseService extends BaseApi {
     const courseData = new Course(id, name, code);
     const validation = courseData.validate();
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
     return this.put(`${this.endpoint}/${id}`, courseData);
   }
@@ -59,9 +59,30 @@ export default class CourseService extends BaseApi {
     return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
   }
 
-  //UC-07 Sort records
-  getSortedCourses(sortBy = "name", order = "asc") {
-    return this.get(`/courses?_sort=${sortBy}&_order=${order}`);
+  //UC-07 Paginated server-side sort
+  async getSortedCoursesPage(
+    page = 1,
+    perPage = 10,
+    sortBy = "name",
+    order = "asc",
+    query = "",
+  ) {
+    const params = new URLSearchParams();
+    params.set("_page", String(page));
+    params.set("_limit", String(perPage));
+    params.set("_sort", sortBy);
+    params.set("_order", order);
+
+    let { data, headers } = await this.getWithHeaders(
+      `${this.endpoint}?${params.toString()}&name_like=${query}`,
+    );
+
+    const total = Number(headers.get("X-Total-Count") ?? "0");
+    const totalPages = Math.ceil(total / perPage);
+    const hasNext = page < totalPages;
+    const hasPrev = page > 1;
+
+    return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
   }
 
   getCourseById(id) {

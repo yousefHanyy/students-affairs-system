@@ -127,7 +127,7 @@ class DataTable {
 
       this.columns.forEach((col) => {
         const td = document.createElement("td");
-        const value = item[col.key];
+        let value = item[col.key];
 
         // Special handling for courses column - create a dropdown
         if (col.key === "courses" && Array.isArray(value)) {
@@ -155,8 +155,19 @@ class DataTable {
           }
 
           td.appendChild(select);
-        } else if (col.key === "assignedCourses" || Array.isArray(value)) {
-          td.textContent = value[0]?.courseName || "No courses assigned";
+        } else if (
+          col.key === "assignedCourses" ||
+          col.key === "startDate" ||
+          col.key === "endDate"
+        ) {
+          value = item["assignedCourses"] || [];
+          if (col.key === "assignedCourses") {
+            td.textContent = `${value[0]?.courseName || "No courses assigned"}`;
+          } else if (col.key === "startDate") {
+            td.textContent = `${value[0]?.startDate || "N/A"}`;
+          } else {
+            td.textContent = `${value[0]?.endDate || "N/A"}`;
+          }
         } else {
           // Handle other columns normally
           td.textContent = Array.isArray(value) ? value.join(", ") : value;
