@@ -83,8 +83,9 @@ students-affairs-system/
 ├── client/
 │   ├── css/
 │   │   └── style.css
+│   ├── node_modules/
 │   ├── public/
-│   │   └── index.html
+│   │   └── favicon.ico
 │   └── src/
 │       ├── api/
 │       │   └── baseApi.js
@@ -105,12 +106,21 @@ students-affairs-system/
 │       │   └── studentService.js
 │       ├── utils/
 │       │   └── validators.js
-│       └── app.js
+│       |── app.js
+│       |── .env
+│       |── index.html
+│       |── package-lock.json
+│       |── package.json
+│       ├── vercel.json
+│       └── vite.config.js
 ├── server/
+│   ├── api/
+│   │   └── server.js
 │   ├── node_modules/
 │   ├── db.json
 │   ├── package-lock.json
-│   └── package.json
+│   ├── package.json
+│   └── vercel.json
 ├── .gitignore
 └── README.md
 ```
