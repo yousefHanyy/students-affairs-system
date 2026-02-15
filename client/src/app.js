@@ -4,6 +4,10 @@
 // Handles navigation between different sections (Students, Courses, Instructors, Employees).
 // Coordinates between services and components.
 // Sets up event listeners for the navigation menu.
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 import StudentService from "./services/studentService.js";
 import CourseService from "./services/courseService.js";
 import InstructorService from "./services/instructorService.js";
