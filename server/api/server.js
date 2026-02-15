@@ -13,10 +13,34 @@ const router = jsonServer.router(db);
 server.use(middlewares);
 
 // CORS for frontend
+const allowedOrigins = [
+  "https://students-affairs-system.vercel.app", // Your frontend
+  "http://localhost:8080", // Local development
+  "http://localhost:5173", // Vite default port
+];
+
 server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "*");
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+  }
+
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept",
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
   next();
 });
 
@@ -25,6 +49,8 @@ server.use(
     "/api/*": "/$1",
   }),
 );
+
+server.use(router);
 
 server.use(router);
 
