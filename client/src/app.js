@@ -6,6 +6,7 @@
 // Sets up event listeners for the navigation menu.
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "../css/fonts.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 import StudentService from "./services/studentService.js";
