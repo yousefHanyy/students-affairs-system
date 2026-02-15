@@ -56,7 +56,7 @@ export default class StudentService extends BaseApi {
     const validation = student.validate();
 
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
 
     return this.post(this.endpoint, student);
@@ -75,7 +75,7 @@ export default class StudentService extends BaseApi {
     );
     const validation = studentData.validate();
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
     return this.put(`${this.endpoint}/${id}`, studentData);
   }

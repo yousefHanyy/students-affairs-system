@@ -65,7 +65,7 @@ export default class InstructorService extends BaseApi {
     const validation = instructor.validate();
 
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
 
     return this.post(this.endpoint, instructor);
@@ -83,7 +83,7 @@ export default class InstructorService extends BaseApi {
     );
     const validation = instructorData.validate();
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
     return this.put(`${this.endpoint}/${id}`, instructorData);
   }

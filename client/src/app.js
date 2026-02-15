@@ -74,6 +74,8 @@ const columnsConfig = {
     { key: "age", label: "Age" },
     { key: "department", label: "Department" },
     { key: "assignedCourses", label: "Assigned Courses" },
+    { key: "startDate", label: "Start Date" },
+    { key: "endDate", label: "End Date" },
   ],
   employees: [
     { key: "id", label: "ID" },
@@ -262,6 +264,8 @@ form.onSubmit = async (model, action) => {
             model.age,
             model.department,
             model.assignedCourses || [],
+            model.startDate,
+            model.endDate,
           );
         } else {
           await instructorService.editInstructor(model);

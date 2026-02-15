@@ -69,7 +69,7 @@ class Form {
   initEvents() {
     const form = this.getFormElement();
     if (form) {
-      //makes sure the old form doesnt have the event listener still if itsn't being used
+      // Remove existing listener if any to avoid duplicates
       form.removeEventListener("submit", this.handleSubmit.bind(this));
       form.addEventListener("submit", (e) => {
         this.handleSubmit(e);
@@ -91,12 +91,13 @@ class Form {
 
   async initCourseService() {
     if (!this.courseService) {
-      //dynamically import to save memory space if course service is not needed right now
+      // dynamically import to save memory space if course service is not needed right now
       const { default: CourseService } =
         await import("../services/courseService.js");
       this.courseService = new CourseService();
     }
   }
+
   async buildFields(entity, item = null) {
     // normalize entity names (app uses plurals like 'students')
     const normalizedEntity =
@@ -104,15 +105,12 @@ class Form {
     this.currentEntity = normalizedEntity;
     this.currentItem = item;
 
-    let courses = [];
-    if (normalizedEntity === "student") {
-      await this.initCourseService();
-      courses = await this.courseService.getAllCourses();
-    }
-
     let html = ``;
 
     if (normalizedEntity === "student") {
+      await this.initCourseService();
+      const courses = await this.courseService.getAllCourses();
+
       html = `
         <div class="mb-3">
           <label class="form-label">Name</label>
@@ -128,7 +126,7 @@ class Form {
         </div>
         <div class="mb-3">
           <label class="form-label">Age</label>
-          <input name="age" type="number" class="form-control" value="${item?.age ?? ""}">
+          <input name="age" type="number" class="form-control" required value="${item?.age ?? ""}">
         </div>
         <div class="mb-3">
           <label class="form-label">Department</label>
@@ -173,7 +171,7 @@ class Form {
         </div>
         <div class="mb-3">
           <label class="form-label">Age</label>
-          <input name="age" type="number" class="form-control" value="${item?.age ?? ""}">
+          <input name="age" type="number" class="form-control" required value="${item?.age ?? ""}">
         </div>
         <div class="mb-3">
           <label class="form-label">Position</label>
@@ -186,39 +184,48 @@ class Form {
       const courses = await this.courseService.getAllCourses();
 
       html = `
-    <div class="mb-3">
-      <label class="form-label">Name</label>
-      <input name="name" type="text" class="form-control" required value="${item?.name ?? ""}">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Email</label>
-      <input name="email" type="email" class="form-control" required value="${item?.email ?? ""}">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Age</label>
-      <input name="age" type="number" class="form-control" value="${item?.age ?? ""}">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Department</label>
-      <input name="department" type="text" class="form-control" required value="${item?.department ?? ""}">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Assigned Course</label>
-      <select name="assignedCourses" class="form-select" required>
-        <option value="">Select a course</option>
-        ${courses
-          .map(
-            (course) => `
-          <option value="${course.id}" ${item?.assignedCourses?.[0]?.courseId === Number(course.id) ? "selected" : ""}>
-            ${course.name}
-          </option>
-        `,
-          )
-          .join("")}
-      </select>
-    </div>
-  `;
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input name="name" type="text" class="form-control" required value="${item?.name ?? ""}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input name="email" type="email" class="form-control" required value="${item?.email ?? ""}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Age</label>
+          <input name="age" type="number" class="form-control" required value="${item?.age ?? ""}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Department</label>
+          <input name="department" type="text" class="form-control" required value="${item?.department ?? ""}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Assigned Course</label>
+          <select name="assignedCourses" class="form-select" required>
+            <option value="">Select a course</option>
+            ${courses
+              .map(
+                (course) => `
+              <option value="${course.id}" ${item?.assignedCourses?.[0]?.courseId === Number(course.id) ? "selected" : ""}>
+                ${course.name}
+              </option>
+            `,
+              )
+              .join("")}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Start Date</label>
+          <input name="startDate" type="date" class="form-control" required value="${item?.assignedCourses?.[0]?.startDate ?? ""}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">End Date</label>
+          <input name="endDate" type="date" class="form-control" required value="${item?.assignedCourses?.[0]?.endDate ?? ""}">
+        </div>
+      `;
     }
+
     this.getFormBodyElement().innerHTML = html;
     const titleEntity =
       normalizedEntity.charAt(0).toUpperCase() + normalizedEntity.slice(1);
@@ -232,13 +239,81 @@ class Form {
     this.modal.show();
   }
 
+  clearErrors() {
+    const form = this.getFormElement();
+    if (!form) return;
+
+    // Remove all 'is-invalid' classes from inputs and selects
+    form.querySelectorAll(".is-invalid").forEach((element) => {
+      element.classList.remove("is-invalid");
+    });
+
+    // Remove all error message divs
+    form.querySelectorAll(".invalid-feedback").forEach((element) => {
+      element.remove();
+    });
+  }
+
+  displayErrors(errors) {
+    const form = this.getFormElement();
+    if (!form) return;
+
+    // Iterate through each field error
+    Object.keys(errors).forEach((fieldName) => {
+      const errorValue = errors[fieldName];
+
+      // Handle nested objects (e.g., assignedCourses: { courseId: "...", startDate: "..." })
+      if (typeof errorValue === "object" && errorValue !== null) {
+        Object.keys(errorValue).forEach((nestedField) => {
+          let input = null;
+          const errorMessage = errorValue[nestedField];
+
+          if (fieldName === "assignedCourses") {
+            if (nestedField === "courseId") {
+              input = form.querySelector(`[name="assignedCourses"]`);
+            } else if (
+              nestedField === "startDate" ||
+              nestedField === "endDate"
+            ) {
+              input = form.querySelector(`[name="${nestedField}"]`);
+            }
+          }
+
+          if (input && errorMessage) {
+            this.applyErrorToInput(input, errorMessage);
+          }
+        });
+      } else {
+        // Handle simple string errors (direct field errors)
+        const input = form.querySelector(`[name="${fieldName}"]`);
+        if (input) {
+          this.applyErrorToInput(input, errorValue);
+        }
+      }
+    });
+  }
+
+  applyErrorToInput(input, message) {
+    input.classList.add("is-invalid");
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "invalid-feedback";
+    errorDiv.style.display = "block";
+    errorDiv.textContent = message;
+    input.parentNode.appendChild(errorDiv);
+  }
+
   async handleSubmit(e) {
     e.preventDefault();
+
+    // Clear previous errors
+    this.clearErrors();
 
     const formData = new FormData(this.getFormElement());
     const data = Object.fromEntries(formData.entries());
 
     const formEl = this.getFormElement();
+    let model;
+
     if (this.currentEntity === "student") {
       const coursesSelect = formEl.querySelector('select[name="courses"]');
       data.courses = coursesSelect
@@ -246,10 +321,7 @@ class Form {
             Number(opt.value),
           )
         : [];
-    }
 
-    let model;
-    if (this.currentEntity === "student") {
       model = new Student(
         this.currentItem?.id,
         data.name,
@@ -262,12 +334,19 @@ class Form {
     } else if (this.currentEntity === "course") {
       model = new Course(this.currentItem?.id, data.name, data.code);
     } else if (this.currentEntity === "instructor") {
-      const courseSelect = this.getFormElement().querySelector(
+      const courseSelect = formEl.querySelector(
         'select[name="assignedCourses"]',
       );
       data.assignedCourses = courseSelect.value
-        ? [{ courseId: Number(courseSelect.value) }]
+        ? [
+            {
+              courseId: Number(courseSelect.value),
+              startDate: data.startDate,
+              endDate: data.endDate,
+            },
+          ]
         : [];
+
       model = new Instructor(
         this.currentItem?.id,
         data.name,
@@ -286,23 +365,25 @@ class Form {
         data.position,
       );
     }
+
     const validation = model.validate();
     if (!validation.isValid) {
-      alert(validation.errors.join("\n"));
+      this.displayErrors(validation.errors);
       return;
     }
+
     if (this.onSubmit) {
       await this.onSubmit(model, this.currentItem ? "edit" : "add");
     }
+
     this.modal.hide();
-    this.getFormElement().reset();
+    formEl.reset();
   }
 
   renderToolbar(toolbarContainerId = "#toolbar-container") {
     const toolbarContainer = document.querySelector(toolbarContainerId);
     const toolbarHTML = `
       <div class="container-fluid">
-        <!-- Toolbar: title + add button -->
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h2 class="h4 mb-0" id="page-title">Students</h2>
           <button id="btn-add" class="btn btn-primary">

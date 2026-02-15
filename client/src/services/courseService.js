@@ -21,7 +21,7 @@ export default class CourseService extends BaseApi {
     const validation = course.validate();
 
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
 
     return this.post(this.endpoint, course);
@@ -32,7 +32,7 @@ export default class CourseService extends BaseApi {
     const courseData = new Course(id, name, code);
     const validation = courseData.validate();
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
     return this.put(`${this.endpoint}/${id}`, courseData);
   }
