@@ -18,45 +18,49 @@ class DataTable {
 
   renderTableContainer() {
     const containerHTML = `
-      <div class="container-fluid">
-        <!-- Filters row -->
-        <div class="row mb-3 g-2">
-          <div class="col-md-6">
-            <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-search"></i></span>
-              <input
-                id="search-input"
-                type="text"
-                class="form-control"
-                placeholder="Search..."
-              />
+      <main id="main-content" aria-label="Main table content">
+        <div class="container-fluid">
+          <!-- Filters row -->
+          <div class="row mb-3 g-2">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search" aria-hidden="true"></i></span>
+                <input
+                  id="search-input"
+                  type="text"
+                  class="form-control"
+                  placeholder="Search..."
+                  aria-label="Search table data"
+                />
+              </div>
+            </div>
+            <div class="col-md-3 ms-auto text-md-end">
+              <label for="page-size" class="visually-hidden">Items per page</label>
+              <select id="page-size" class="form-select" aria-label="Select items per page">
+                <option value="5">5 per page</option>
+                <option value="10" selected>10 per page</option>
+                <option value="20">20 per page</option>
+              </select>
             </div>
           </div>
-          <div class="col-md-3 ms-auto text-md-end">
-            <select id="page-size" class="form-select">
-              <option value="5">5 per page</option>
-              <option value="10" selected>10 per page</option>
-              <option value="20">20 per page</option>
-            </select>
-          </div>
-        </div>
 
-        <!-- Table card -->
-        <div class="card">
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table table-hover mb-0 align-middle">
-                <thead class="table-light" id="table-head">
-                  <!-- DataTable.js will render headers -->
-                </thead>
-                <tbody id="table-body">
-                  <!-- DataTable.js will render rows -->
-                </tbody>
-              </table>
+          <!-- Table card -->
+          <div class="card">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                  <thead class="table-light" id="table-head">
+                    <!-- DataTable.js will render headers -->
+                  </thead>
+                  <tbody id="table-body">
+                    <!-- DataTable.js will render rows -->
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
     `;
 
     if (this.container) {
@@ -82,9 +86,11 @@ class DataTable {
       const th = document.createElement("th");
       th.textContent = column.label;
       th.classList.add("sortable");
+      th.setAttribute("scope", "col"); // Accessibility: table header scope
 
       const icon = document.createElement("span");
       icon.classList.add("sort-icon", "bi", "bi-sort-up");
+      icon.setAttribute("aria-hidden", "true");
       th.appendChild(icon);
 
       th.addEventListener("click", () => {
@@ -96,6 +102,7 @@ class DataTable {
     const actionsTh = document.createElement("th");
     actionsTh.classList.add("text-end");
     actionsTh.textContent = "Actions";
+    actionsTh.setAttribute("scope", "col");
     tr.appendChild(actionsTh);
 
     this.headElement.innerHTML = "";
@@ -126,6 +133,10 @@ class DataTable {
         if (col.key === "courses" && Array.isArray(value)) {
           const select = document.createElement("select");
           select.className = "form-select form-select-sm";
+          select.setAttribute(
+            "aria-label",
+            "View assigned courses for " + (item.name || "this item"),
+          );
 
           // Add all courses as options
           value.forEach((course) => {
@@ -160,10 +171,13 @@ class DataTable {
 
       const editBtn = document.createElement("button");
       editBtn.className = "btn btn-sm btn-outline-secondary me-1";
-      editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
+      editBtn.innerHTML = '<i class="bi bi-pencil" aria-hidden="true"></i>';
+      editBtn.setAttribute(
+        "aria-label",
+        "Edit " + (item.name || "this record"),
+      );
+      editBtn.setAttribute("type", "button"); // Explicit type for accessibility
       editBtn.addEventListener("click", () => {
-        //delegates the onDelete action to app.js since it will be the one with the functionality
-        //checks if onEdit exists and then uses it
         if (this.onEdit) {
           this.onEdit(item);
         }
@@ -172,8 +186,12 @@ class DataTable {
 
       const delBtn = document.createElement("button");
       delBtn.className = "btn btn-sm btn-outline-danger";
-      delBtn.innerHTML = '<i class="bi bi-trash"></i>';
-
+      delBtn.innerHTML = '<i class="bi bi-trash" aria-hidden="true"></i>';
+      delBtn.setAttribute(
+        "aria-label",
+        "Delete " + (item.name || "this record"),
+      );
+      delBtn.setAttribute("type", "button");
       delBtn.addEventListener("click", () => {
         if (this.onDelete) {
           this.onDelete(item);
@@ -185,6 +203,7 @@ class DataTable {
       this.bodyElement.appendChild(tr);
     });
   }
+
   toggleSort(field) {
     //checking if the field has been clicked before to toggle the order or select field
     if (this.currentSortField === field) {
