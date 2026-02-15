@@ -35,6 +35,16 @@ To run this project locally, you will need:
 
 ### Installation
 
+#### Option 1: Install from npm (Recommended)
+
+```bash
+npm install students-affairs-system
+cd node_modules/students-affairs-system
+npm run install-all
+```
+
+#### Option 2: Clone from GitHub
+
 1.  **Clone the repository**:
 
     ```bash
@@ -42,28 +52,44 @@ To run this project locally, you will need:
     cd students-affairs-system
     ```
 
-2.  **Install json-server** (if you don't have it globally):
+2.  **Install dependencies**:
 
     ```bash
-    npm install -g json-server
-    # or
-    yarn global add json-server
+    npm run install-all
+    # or manually
+    cd client && npm install
+    cd ../server && npm install
     ```
 
-3.  **Start the mock backend**:
+### Running the Application
 
-    Navigate to the `backend` directory and start the `json-server`.
+1.  **Start the mock backend**:
 
     ```bash
-    cd backend
-    json-server --watch db.json --port 3000
+    npm run dev:server
+    # or
+    cd server
+    npm start
     ```
 
     This will start the `json-server` on `http://localhost:3000`.
 
-4.  **Open the `index.html` file** in your web browser.
+2.  **Start the frontend** (in a new terminal):
 
-    Navigate to the `frontend/public` directory and open `index.html` directly, or serve it using a simple local web server (e.g., `python -m http.server`).
+    ```bash
+    npm run dev:client
+    # or
+    cd client
+    npm run dev
+    ```
+
+    The application will be available at `http://localhost:5173` (or another port shown in the terminal).
+
+3.  **Build for production**:
+
+    ```bash
+    npm run build:client
+    ```
 
 ## Usage
 
@@ -125,6 +151,22 @@ students-affairs-system/
 └── README.md
 ```
 
+## npm Package
+
+This project is available as an npm package: [students-affairs-system](https://www.npmjs.com/package/students-affairs-system)
+
+To install:
+
+```bash
+npm install students-affairs-system
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to fork the repository, create a new branch, and submit a pull request with your improvements.
+
+## Links
+
+- **Live Demo**: [https://students-affairs-system.vercel.app/](https://students-affairs-system.vercel.app/)
+- **GitHub Repository**: [https://github.com/MoSalem149/students-affairs-system](https://github.com/MoSalem149/students-affairs-system)
+- **npm Package**: [https://www.npmjs.com/package/students-affairs-system](https://www.npmjs.com/package/students-affairs-system)

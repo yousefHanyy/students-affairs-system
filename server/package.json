@@ -1,14 +1,30 @@
 {
-  "name": "backend",
+  "name": "students-affairs-server",
   "version": "1.0.0",
-  "description": "Students Affairs Backend API",
+  "description": "Students Affairs Backend API - Mock REST API using json-server",
   "main": "api/server.js",
   "scripts": {
     "start": "json-server --watch db.json --port 3000"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "json-server",
+    "rest-api",
+    "mock-api",
+    "backend",
+    "student-management"
+  ],
+  "authors": [
+    "Yousef Hany Mahmoud",
+    "Mohamed Wael Salem",
+    "Mohamed Nasr Elkhoreby"
+  ],
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MoSalem149/students-affairs-system.git",
+    "directory": "server"
+  },
+  "homepage": "https://students-affairs-system.vercel.app/",
   "type": "commonjs",
   "dependencies": {
     "json-server": "^0.17.4"

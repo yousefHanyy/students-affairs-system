@@ -1,0 +1,46 @@
+{
+  "name": "students-affairs-system",
+  "version": "1.0.0",
+  "description": "A comprehensive web application for managing student, course, instructor, and employee data within a Students Affairs department. Features CRUD operations, pagination, search, and sorting capabilities.",
+  "main": "server/api/server.js",
+  "scripts": {
+    "install-all": "cd client && npm install && cd ../server && npm install",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm start",
+    "build:client": "cd client && npm run build",
+    "start": "cd server && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoSalem149/students-affairs-system.git"
+  },
+  "keywords": [
+    "student-management",
+    "crud",
+    "json-server",
+    "vite",
+    "vanilla-js",
+    "students-affairs",
+    "education",
+    "data-management",
+    "oop",
+    "es6",
+    "bootstrap",
+    "pagination",
+    "search",
+    "sorting"
+  ],
+  "authors": [
+    "Yousef Hany Mahmoud",
+    "Mohamed Wael Salem",
+    "Mohamed Nasr Elkhoreby"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MoSalem149/students-affairs-system/issues"
+  },
+  "homepage": "https://students-affairs-system.vercel.app/",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
