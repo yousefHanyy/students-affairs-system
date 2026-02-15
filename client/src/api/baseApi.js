@@ -1,9 +1,12 @@
 // Base API Class to Handle API Requests.
 // GET, POST, PUT, DELETE Methods for API Calls.
 class BaseApi {
-  constructor(baseURL = "http://localhost:3000") {
+  constructor(
+    baseURL = import.meta.env.VITE_API_URL || "http://localhost:3000",
+  ) {
     this.baseURL = baseURL;
   }
+
   //Get method:
   async get(endpoint) {
     try {
@@ -17,6 +20,23 @@ class BaseApi {
       throw error;
     }
   }
+
+  //Get for pagination(returns both data and headers for pagination):
+  async getWithHeaders(endpoint) {
+    try {
+      const response = await fetch(`${this.baseURL}${endpoint}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const headers = response.headers;
+      return { data, headers };
+    } catch (error) {
+      console.error("GET error:", error);
+      throw error;
+    }
+  }
+
   //Post method (create):
   async post(endpoint, data) {
     try {
@@ -36,6 +56,7 @@ class BaseApi {
       throw error;
     }
   }
+
   //Put method (update):
   async put(endpoint, data) {
     try {
@@ -55,6 +76,7 @@ class BaseApi {
       throw error;
     }
   }
+
   //Delete method:
   async delete(endpoint) {
     try {

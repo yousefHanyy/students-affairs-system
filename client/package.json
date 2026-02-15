@@ -1,12 +1,17 @@
 {
-  "name": "client",
+  "name": "frontend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Students Affairs System Frontend - Vite + Vanilla JS",
   "scripts": {
-    "dev": "npx http-server . -p 8080 -o /public/index.html -c-1",
-    "start": "npx http-server . -p 8080 -o /public/index.html"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1"
+  }
 }

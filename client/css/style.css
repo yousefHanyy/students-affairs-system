@@ -1,1 +1,22 @@
 /* Put Our Main Stayles Here */
+
+/* Prevent horizontal scrolling */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+.sortable .sort-icon {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-left: 4px;
+}

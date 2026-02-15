@@ -1,710 +1,1165 @@
 {
-    "students": [
+  "students": [
+    {
+      "id": 1,
+      "name": "Medhat Mansour",
+      "email": "medhat.mansour1@student.edu.eg",
+      "phone": "01030287045",
+      "age": 22,
+      "department": "Information Technology",
+      "courses": [
+        20,
+        9
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Fatima Nasser",
+      "email": "fatima.nasser2@student.edu.eg",
+      "phone": "01076887253",
+      "age": 23,
+      "department": "Data Science",
+      "courses": [
+        16,
+        9
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Nada Hakim",
+      "email": "nada.hakim3@student.edu.eg",
+      "phone": "01069729874",
+      "age": 21,
+      "department": "Computer Science",
+      "courses": [
+        4
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Ali Rashid",
+      "email": "ali.rashid4@student.edu.eg",
+      "phone": "01027537908",
+      "age": 22,
+      "department": "Software Engineering",
+      "courses": [
+        18
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Basel Hassan",
+      "email": "basel.hassan5@student.edu.eg",
+      "phone": "01039244192",
+      "age": 21,
+      "department": "Cybersecurity",
+      "courses": [
+        5,
+        15,
+        3
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Leila Farouk",
+      "email": "leila.farouk6@student.edu.eg",
+      "phone": "01098039684",
+      "age": 25,
+      "department": "Cybersecurity",
+      "courses": [
+        12,
+        9,
+        10
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Walid Mahfouz",
+      "email": "walid.mahfouz7@student.edu.eg",
+      "phone": "01096792225",
+      "age": 23,
+      "department": "Cybersecurity",
+      "courses": [
+        1,
+        20
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Mahmoud Nasser",
+      "email": "mahmoud.nasser8@student.edu.eg",
+      "phone": "01058455939",
+      "age": 25,
+      "department": "Artificial Intelligence",
+      "courses": [
+        16
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Walid Gamal",
+      "email": "walid.gamal9@student.edu.eg",
+      "phone": "01042439153",
+      "age": 23,
+      "department": "Software Engineering",
+      "courses": [
+        20,
+        18,
+        19
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Youssef Rashid",
+      "email": "youssef.rashid10@student.edu.eg",
+      "phone": "01062047218",
+      "age": 22,
+      "department": "Computer Science",
+      "courses": [
+        9,
+        16
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Leila Salem",
+      "email": "leila.salem11@student.edu.eg",
+      "phone": "01085680104",
+      "age": 20,
+      "department": "Information Technology",
+      "courses": [
+        7,
+        12,
+        20
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Sara Rashid",
+      "email": "sara.rashid12@student.edu.eg",
+      "phone": "01076502638",
+      "age": 20,
+      "department": "Software Engineering",
+      "courses": [
+        11
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Mariam Mansour",
+      "email": "mariam.mansour13@student.edu.eg",
+      "phone": "01089095492",
+      "age": 21,
+      "department": "Data Science",
+      "courses": [
+        20,
+        1
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Khaled Khalil",
+      "email": "khaled.khalil14@student.edu.eg",
+      "phone": "01018466676",
+      "age": 22,
+      "department": "Computer Science",
+      "courses": [
+        11,
+        7
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Yasmin Gamal",
+      "email": "yasmin.gamal15@student.edu.eg",
+      "phone": "01078831110",
+      "age": 23,
+      "department": "Software Engineering",
+      "courses": [
+        18,
+        5
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Huda Amin",
+      "email": "huda.amin16@student.edu.eg",
+      "phone": "01033694592",
+      "age": 18,
+      "department": "Information Systems",
+      "courses": [
+        14,
+        12
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Hamza Hassan",
+      "email": "hamza.hassan17@student.edu.eg",
+      "phone": "01030048504",
+      "age": 19,
+      "department": "Cybersecurity",
+      "courses": [
+        8,
+        18,
+        10
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Basel Aziz",
+      "email": "basel.aziz18@student.edu.eg",
+      "phone": "01086608799",
+      "age": 19,
+      "department": "Computer Science",
+      "courses": [
+        5,
+        15
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Aisha Mahfouz",
+      "email": "aisha.mahfouz19@student.edu.eg",
+      "phone": "01085277157",
+      "age": 19,
+      "department": "Computer Science",
+      "courses": [
+        4,
+        14,
+        10
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Rania Farouk",
+      "email": "rania.farouk20@student.edu.eg",
+      "phone": "01033095022",
+      "age": 20,
+      "department": "Information Technology",
+      "courses": [
+        16,
+        6,
+        9
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Yasmin Salem",
+      "email": "yasmin.salem21@student.edu.eg",
+      "phone": "01020213882",
+      "age": 23,
+      "department": "Information Technology",
+      "courses": [
+        19
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Omar Kamel",
+      "email": "omar.kamel22@student.edu.eg",
+      "phone": "01048765358",
+      "age": 22,
+      "department": "Computer Engineering",
+      "courses": [
+        8
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Mariam Nasser",
+      "email": "mariam.nasser23@student.edu.eg",
+      "phone": "01070066584",
+      "age": 22,
+      "department": "Information Systems",
+      "courses": [
+        4,
+        11
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Zahra Badawi",
+      "email": "zahra.badawi24@student.edu.eg",
+      "phone": "01017103078",
+      "age": 24,
+      "department": "Information Systems",
+      "courses": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Mona Nasser",
+      "email": "mona.nasser25@student.edu.eg",
+      "phone": "01013089057",
+      "age": 25,
+      "department": "Artificial Intelligence",
+      "courses": [
+        13
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Leila Aziz",
+      "email": "leila.aziz26@student.edu.eg",
+      "phone": "01057925083",
+      "age": 25,
+      "department": "Computer Science",
+      "courses": [
+        7,
+        4,
+        12
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Samir Salem",
+      "email": "samir.salem27@student.edu.eg",
+      "phone": "01021842567",
+      "age": 25,
+      "department": "Information Systems",
+      "courses": [
+        10,
+        10
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Ibrahim Hassan",
+      "email": "ibrahim.hassan28@student.edu.eg",
+      "phone": "01029304971",
+      "age": 22,
+      "department": "Computer Science",
+      "courses": [
+        3,
+        17,
+        8
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Lina Salem",
+      "email": "lina.salem29@student.edu.eg",
+      "phone": "01077549393",
+      "age": 24,
+      "department": "Artificial Intelligence",
+      "courses": [
+        17,
+        19,
+        11
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Lina Gamal",
+      "email": "lina.gamal30@student.edu.eg",
+      "phone": "01096811945",
+      "age": 24,
+      "department": "Data Science",
+      "courses": [
+        19
+      ]
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "name": "Data Structures",
+      "code": "CS105"
+    },
+    {
+      "id": 2,
+      "name": "Algorithms",
+      "code": "CS110"
+    },
+    {
+      "id": 3,
+      "name": "Operating Systems",
+      "code": "CS115"
+    },
+    {
+      "id": 4,
+      "name": "Computer Networks",
+      "code": "CS120"
+    },
+    {
+      "id": 5,
+      "name": "Database Systems",
+      "code": "CS125"
+    },
+    {
+      "id": 6,
+      "name": "Software Engineering",
+      "code": "CS130"
+    },
+    {
+      "id": 7,
+      "name": "Web Development",
+      "code": "CS135"
+    },
+    {
+      "id": 8,
+      "name": "Mobile Development",
+      "code": "CS140"
+    },
+    {
+      "id": 9,
+      "name": "Artificial Intelligence",
+      "code": "CS145"
+    },
+    {
+      "id": 10,
+      "name": "Machine Learning",
+      "code": "CS150"
+    },
+    {
+      "id": 11,
+      "name": "Computer Graphics",
+      "code": "CS155"
+    },
+    {
+      "id": 12,
+      "name": "Cybersecurity",
+      "code": "CS160"
+    },
+    {
+      "id": 13,
+      "name": "Cloud Computing",
+      "code": "CS165"
+    },
+    {
+      "id": 14,
+      "name": "Distributed Systems",
+      "code": "CS170"
+    },
+    {
+      "id": 15,
+      "name": "Computer Architecture",
+      "code": "CS175"
+    },
+    {
+      "id": 16,
+      "name": "Compiler Design",
+      "code": "CS180"
+    },
+    {
+      "id": 17,
+      "name": "Human-Computer Interaction",
+      "code": "CS185"
+    },
+    {
+      "id": 18,
+      "name": "Data Mining",
+      "code": "CS190"
+    },
+    {
+      "id": 19,
+      "name": "Computer Vision",
+      "code": "CS195"
+    },
+    {
+      "id": 20,
+      "name": "Natural Language Processing",
+      "code": "CS200"
+    }
+  ],
+  "employees": [
+    {
+      "id": 1,
+      "name": "Eng. Malak Amin",
+      "email": "malak.amin@university.edu.eg",
+      "age": 30,
+      "role": "instructor",
+      "department": "Cybersecurity",
+      "assignedCourses": [
         {
-            "id": 1,
-            "name": "Adel Mansour",
-            "email": "adel.mansour1@student.edu.eg",
-            "phone": "01030287045",
-            "department": "Information Technology"
-        },
-        {
-            "id": 2,
-            "name": "Fatima Nasser",
-            "email": "fatima.nasser2@student.edu.eg",
-            "phone": "01076887253",
-            "department": "Data Science"
-        },
-        {
-            "id": 3,
-            "name": "Nada Hakim",
-            "email": "nada.hakim3@student.edu.eg",
-            "phone": "01069729874",
-            "department": "Computer Science"
-        },
-        {
-            "id": 4,
-            "name": "Ali Rashid",
-            "email": "ali.rashid4@student.edu.eg",
-            "phone": "01027537908",
-            "department": "Software Engineering"
-        },
-        {
-            "id": 5,
-            "name": "Basel Hassan",
-            "email": "basel.hassan5@student.edu.eg",
-            "phone": "01039244192",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 6,
-            "name": "Leila Farouk",
-            "email": "leila.farouk6@student.edu.eg",
-            "phone": "01098039684",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 7,
-            "name": "Walid Mahfouz",
-            "email": "walid.mahfouz7@student.edu.eg",
-            "phone": "01096792225",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 8,
-            "name": "Mahmoud Nasser",
-            "email": "mahmoud.nasser8@student.edu.eg",
-            "phone": "01058455939",
-            "department": "Artificial Intelligence"
-        },
-        {
-            "id": 9,
-            "name": "Walid Gamal",
-            "email": "walid.gamal9@student.edu.eg",
-            "phone": "01042439153",
-            "department": "Software Engineering"
-        },
-        {
-            "id": 10,
-            "name": "Youssef Rashid",
-            "email": "youssef.rashid10@student.edu.eg",
-            "phone": "01062047218",
-            "department": "Computer Science"
-        },
-        {
-            "id": 11,
-            "name": "Leila Salem",
-            "email": "leila.salem11@student.edu.eg",
-            "phone": "01085680104",
-            "department": "Information Technology"
-        },
-        {
-            "id": 12,
-            "name": "Sara Rashid",
-            "email": "sara.rashid12@student.edu.eg",
-            "phone": "01076502638",
-            "department": "Software Engineering"
-        },
-        {
-            "id": 13,
-            "name": "Mariam Mansour",
-            "email": "mariam.mansour13@student.edu.eg",
-            "phone": "01089095492",
-            "department": "Data Science"
-        },
-        {
-            "id": 14,
-            "name": "Khaled Khalil",
-            "email": "khaled.khalil14@student.edu.eg",
-            "phone": "01018466676",
-            "department": "Computer Science"
-        },
-        {
-            "id": 15,
-            "name": "Yasmin Gamal",
-            "email": "yasmin.gamal15@student.edu.eg",
-            "phone": "01078831110",
-            "department": "Software Engineering"
-        },
-        {
-            "id": 16,
-            "name": "Huda Amin",
-            "email": "huda.amin16@student.edu.eg",
-            "phone": "01033694592",
-            "department": "Information Systems"
-        },
-        {
-            "id": 17,
-            "name": "Hamza Hassan",
-            "email": "hamza.hassan17@student.edu.eg",
-            "phone": "01030048504",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 18,
-            "name": "Basel Aziz",
-            "email": "basel.aziz18@student.edu.eg",
-            "phone": "01086608799",
-            "department": "Computer Science"
-        },
-        {
-            "id": 19,
-            "name": "Aisha Mahfouz",
-            "email": "aisha.mahfouz19@student.edu.eg",
-            "phone": "01085277157",
-            "department": "Computer Science"
-        },
-        {
-            "id": 20,
-            "name": "Rania Farouk",
-            "email": "rania.farouk20@student.edu.eg",
-            "phone": "01033095022",
-            "department": "Information Technology"
-        },
-        {
-            "id": 21,
-            "name": "Yasmin Salem",
-            "email": "yasmin.salem21@student.edu.eg",
-            "phone": "01020213882",
-            "department": "Information Technology"
-        },
-        {
-            "id": 22,
-            "name": "Omar Kamel",
-            "email": "omar.kamel22@student.edu.eg",
-            "phone": "01048765358",
-            "department": "Computer Engineering"
-        },
-        {
-            "id": 23,
-            "name": "Mariam Nasser",
-            "email": "mariam.nasser23@student.edu.eg",
-            "phone": "01070066584",
-            "department": "Information Systems"
-        },
-        {
-            "id": 24,
-            "name": "Zahra Badawi",
-            "email": "zahra.badawi24@student.edu.eg",
-            "phone": "01017103078",
-            "department": "Information Systems"
-        },
-        {
-            "id": 25,
-            "name": "Mona Nasser",
-            "email": "mona.nasser25@student.edu.eg",
-            "phone": "01013089057",
-            "department": "Artificial Intelligence"
-        },
-        {
-            "id": 26,
-            "name": "Leila Aziz",
-            "email": "leila.aziz26@student.edu.eg",
-            "phone": "01057925083",
-            "department": "Computer Science"
-        },
-        {
-            "id": 27,
-            "name": "Samir Salem",
-            "email": "samir.salem27@student.edu.eg",
-            "phone": "01021842567",
-            "department": "Information Systems"
-        },
-        {
-            "id": 28,
-            "name": "Ibrahim Hassan",
-            "email": "ibrahim.hassan28@student.edu.eg",
-            "phone": "01029304971",
-            "department": "Computer Science"
-        },
-        {
-            "id": 29,
-            "name": "Lina Salem",
-            "email": "lina.salem29@student.edu.eg",
-            "phone": "01077549393",
-            "department": "Artificial Intelligence"
-        },
-        {
-            "id": 30,
-            "name": "Lina Gamal",
-            "email": "lina.gamal30@student.edu.eg",
-            "phone": "01096811945",
-            "department": "Data Science"
+          "courseId": 3,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
         }
-    ],
-    "courses": [
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Eng. Maya Jabr",
+      "email": "maya.jabr@university.edu.eg",
+      "age": 46,
+      "role": "instructor",
+      "department": "Cybersecurity",
+      "assignedCourses": [
         {
-            "id": 1,
-            "name": "Data Structures",
-            "code": "CS105"
-        },
-        {
-            "id": 2,
-            "name": "Algorithms",
-            "code": "CS110"
-        },
-        {
-            "id": 3,
-            "name": "Operating Systems",
-            "code": "CS115"
-        },
-        {
-            "id": 4,
-            "name": "Computer Networks",
-            "code": "CS120"
-        },
-        {
-            "id": 5,
-            "name": "Database Systems",
-            "code": "CS125"
-        },
-        {
-            "id": 6,
-            "name": "Software Engineering",
-            "code": "CS130"
-        },
-        {
-            "id": 7,
-            "name": "Web Development",
-            "code": "CS135"
-        },
-        {
-            "id": 8,
-            "name": "Mobile Development",
-            "code": "CS140"
-        },
-        {
-            "id": 9,
-            "name": "Artificial Intelligence",
-            "code": "CS145"
-        },
-        {
-            "id": 10,
-            "name": "Machine Learning",
-            "code": "CS150"
-        },
-        {
-            "id": 11,
-            "name": "Computer Graphics",
-            "code": "CS155"
-        },
-        {
-            "id": 12,
-            "name": "Cybersecurity",
-            "code": "CS160"
-        },
-        {
-            "id": 13,
-            "name": "Cloud Computing",
-            "code": "CS165"
-        },
-        {
-            "id": 14,
-            "name": "Distributed Systems",
-            "code": "CS170"
-        },
-        {
-            "id": 15,
-            "name": "Computer Architecture",
-            "code": "CS175"
-        },
-        {
-            "id": 16,
-            "name": "Compiler Design",
-            "code": "CS180"
-        },
-        {
-            "id": 17,
-            "name": "Human-Computer Interaction",
-            "code": "CS185"
-        },
-        {
-            "id": 18,
-            "name": "Data Mining",
-            "code": "CS190"
-        },
-        {
-            "id": 19,
-            "name": "Computer Vision",
-            "code": "CS195"
-        },
-        {
-            "id": 20,
-            "name": "Natural Language Processing",
-            "code": "CS200"
+          "courseId": 6,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
         }
-    ],
-    "instructors": [
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Prof. Karim Salem",
+      "email": "karim.salem@university.edu.eg",
+      "age": 54,
+      "role": "instructor",
+      "department": "Data Science",
+      "assignedCourses": [
         {
-            "id": 1,
-            "name": "Eng. Malak Amin",
-            "email": "malak.amin@university.edu.eg",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 2,
-            "name": "Eng. Maya Jabr",
-            "email": "maya.jabr@university.edu.eg",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 3,
-            "name": "Prof. Karim Salem",
-            "email": "karim.salem@university.edu.eg",
-            "department": "Data Science"
-        },
-        {
-            "id": 4,
-            "name": "Prof. Huda Mansour",
-            "email": "huda.mansour@university.edu.eg",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 5,
-            "name": "Prof. Huda Rashid",
-            "email": "huda.rashid@university.edu.eg",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 6,
-            "name": "Dr. Dina Nasser",
-            "email": "dina.nasser@university.edu.eg",
-            "department": "Information Systems"
-        },
-        {
-            "id": 7,
-            "name": "Eng. Maya Hassan",
-            "email": "maya.hassan@university.edu.eg",
-            "department": "Software Engineering"
-        },
-        {
-            "id": 8,
-            "name": "Dr. Nour Mahfouz",
-            "email": "nour.mahfouz@university.edu.eg",
-            "department": "Information Technology"
-        },
-        {
-            "id": 9,
-            "name": "Prof. Mona Gamal",
-            "email": "mona.gamal@university.edu.eg",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 10,
-            "name": "Eng. Sara Mahfouz",
-            "email": "sara.mahfouz@university.edu.eg",
-            "department": "Computer Science"
-        },
-        {
-            "id": 11,
-            "name": "Eng. Aisha Nasser",
-            "email": "aisha.nasser@university.edu.eg",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 12,
-            "name": "Dr. Dina Mahfouz",
-            "email": "dina.mahfouz@university.edu.eg",
-            "department": "Computer Engineering"
-        },
-        {
-            "id": 13,
-            "name": "Prof. Samir Rashid",
-            "email": "samir.rashid@university.edu.eg",
-            "department": "Software Engineering"
-        },
-        {
-            "id": 14,
-            "name": "Dr. Samir Mansour",
-            "email": "samir.mansour@university.edu.eg",
-            "department": "Information Systems"
-        },
-        {
-            "id": 15,
-            "name": "Prof. Yasmin Jabr",
-            "email": "yasmin.jabr@university.edu.eg",
-            "department": "Artificial Intelligence"
-        },
-        {
-            "id": 16,
-            "name": "Dr. Amira Kamel",
-            "email": "amira.kamel@university.edu.eg",
-            "department": "Artificial Intelligence"
-        },
-        {
-            "id": 17,
-            "name": "Prof. Khaled Gamal",
-            "email": "khaled.gamal@university.edu.eg",
-            "department": "Data Science"
-        },
-        {
-            "id": 18,
-            "name": "Eng. Zahra Khalil",
-            "email": "zahra.khalil@university.edu.eg",
-            "department": "Artificial Intelligence"
-        },
-        {
-            "id": 19,
-            "name": "Prof. Tariq Mansour",
-            "email": "tariq.mansour@university.edu.eg",
-            "department": "Artificial Intelligence"
-        },
-        {
-            "id": 20,
-            "name": "Prof. Leila Hakim",
-            "email": "leila.hakim@university.edu.eg",
-            "department": "Artificial Intelligence"
-        },
-        {
-            "id": 21,
-            "name": "Dr. Basel Badawi",
-            "email": "basel.badawi@university.edu.eg",
-            "department": "Data Science"
-        },
-        {
-            "id": 22,
-            "name": "Eng. Leila Hakim",
-            "email": "leila.hakim@university.edu.eg",
-            "department": "Information Systems"
-        },
-        {
-            "id": 23,
-            "name": "Prof. Huda Mahfouz",
-            "email": "huda.mahfouz@university.edu.eg",
-            "department": "Information Technology"
-        },
-        {
-            "id": 24,
-            "name": "Dr. Dina Amin",
-            "email": "dina.amin@university.edu.eg",
-            "department": "Cybersecurity"
-        },
-        {
-            "id": 25,
-            "name": "Prof. Tarek Badawi",
-            "email": "tarek.badawi@university.edu.eg",
-            "department": "Information Technology"
+          "courseId": 10,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
         }
-    ],
-    "employees": [
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Prof. Huda Mansour",
+      "email": "huda.mansour@university.edu.eg",
+      "age": 55,
+      "role": "instructor",
+      "department": "Cybersecurity",
+      "assignedCourses": [
         {
-            "id": 1,
-            "name": "Nada Mahfouz",
-            "email": "nada.mahfouz1@university.edu.eg",
-            "position": "Lab Technician"
-        },
-        {
-            "id": 2,
-            "name": "Nour Farouk",
-            "email": "nour.farouk2@university.edu.eg",
-            "position": "Research Assistant"
-        },
-        {
-            "id": 3,
-            "name": "Dina Khalil",
-            "email": "dina.khalil3@university.edu.eg",
-            "position": "Academic Advisor"
-        },
-        {
-            "id": 4,
-            "name": "Karim Mahfouz",
-            "email": "karim.mahfouz4@university.edu.eg",
-            "position": "Lab Technician"
-        },
-        {
-            "id": 5,
-            "name": "Malak Gamal",
-            "email": "malak.gamal5@university.edu.eg",
-            "position": "Administrative Assistant"
-        },
-        {
-            "id": 6,
-            "name": "Samir Amin",
-            "email": "samir.amin6@university.edu.eg",
-            "position": "Research Assistant"
-        },
-        {
-            "id": 7,
-            "name": "Lina Badawi",
-            "email": "lina.badawi7@university.edu.eg",
-            "position": "Finance Officer"
-        },
-        {
-            "id": 8,
-            "name": "Layla Amin",
-            "email": "layla.amin8@university.edu.eg",
-            "position": "Registrar"
-        },
-        {
-            "id": 9,
-            "name": "Salma Mansour",
-            "email": "salma.mansour9@university.edu.eg",
-            "position": "Librarian"
-        },
-        {
-            "id": 10,
-            "name": "Malak Mansour",
-            "email": "malak.mansour10@university.edu.eg",
-            "position": "Finance Officer"
-        },
-        {
-            "id": 11,
-            "name": "Lina Rashid",
-            "email": "lina.rashid11@university.edu.eg",
-            "position": "Lab Technician"
-        },
-        {
-            "id": 12,
-            "name": "Zahra Nasser",
-            "email": "zahra.nasser12@university.edu.eg",
-            "position": "Registrar"
-        },
-        {
-            "id": 13,
-            "name": "Mona Aziz",
-            "email": "mona.aziz13@university.edu.eg",
-            "position": "HR Manager"
-        },
-        {
-            "id": 14,
-            "name": "Mariam Hassan",
-            "email": "mariam.hassan14@university.edu.eg",
-            "position": "Research Assistant"
-        },
-        {
-            "id": 15,
-            "name": "Rania Kamel",
-            "email": "rania.kamel15@university.edu.eg",
-            "position": "Maintenance Supervisor"
-        },
-        {
-            "id": 16,
-            "name": "Rami Mansour",
-            "email": "rami.mansour16@university.edu.eg",
-            "position": "Registrar"
-        },
-        {
-            "id": 17,
-            "name": "Nour Farouk",
-            "email": "nour.farouk17@university.edu.eg",
-            "position": "Lab Technician"
-        },
-        {
-            "id": 18,
-            "name": "Hassan Hakim",
-            "email": "hassan.hakim18@university.edu.eg",
-            "position": "Security Officer"
-        },
-        {
-            "id": 19,
-            "name": "Fares Hakim",
-            "email": "fares.hakim19@university.edu.eg",
-            "position": "Academic Advisor"
-        },
-        {
-            "id": 20,
-            "name": "Leila Amin",
-            "email": "leila.amin20@university.edu.eg",
-            "position": "Librarian"
-        },
-        {
-            "id": 21,
-            "name": "Khaled Mansour",
-            "email": "khaled.mansour21@university.edu.eg",
-            "position": "Research Assistant"
-        },
-        {
-            "id": 22,
-            "name": "Nada Kamel",
-            "email": "nada.kamel22@university.edu.eg",
-            "position": "IT Support"
-        },
-        {
-            "id": 23,
-            "name": "Ibrahim Aziz",
-            "email": "ibrahim.aziz23@university.edu.eg",
-            "position": "Security Officer"
-        },
-        {
-            "id": 24,
-            "name": "Nour Farouk",
-            "email": "nour.farouk24@university.edu.eg",
-            "position": "Maintenance Supervisor"
-        },
-        {
-            "id": 25,
-            "name": "Rania Khalil",
-            "email": "rania.khalil25@university.edu.eg",
-            "position": "HR Manager"
-        },
-        {
-            "id": 26,
-            "name": "Rami Gamal",
-            "email": "rami.gamal26@university.edu.eg",
-            "position": "Office Manager"
-        },
-        {
-            "id": 27,
-            "name": "Youssef Hakim",
-            "email": "youssef.hakim27@university.edu.eg",
-            "position": "Administrative Assistant"
-        },
-        {
-            "id": 28,
-            "name": "Layla Khalil",
-            "email": "layla.khalil28@university.edu.eg",
-            "position": "IT Support"
-        },
-        {
-            "id": 29,
-            "name": "Mohamed Mansour",
-            "email": "mohamed.mansour29@university.edu.eg",
-            "position": "Lab Technician"
-        },
-        {
-            "id": 30,
-            "name": "Mohamed Kamel",
-            "email": "mohamed.kamel30@university.edu.eg",
-            "position": "Academic Advisor"
-        },
-        {
-            "id": 31,
-            "name": "Maya Mansour",
-            "email": "maya.mansour31@university.edu.eg",
-            "position": "Administrative Assistant"
-        },
-        {
-            "id": 32,
-            "name": "Leila Amin",
-            "email": "leila.amin32@university.edu.eg",
-            "position": "Registrar"
-        },
-        {
-            "id": 33,
-            "name": "Layla Salem",
-            "email": "layla.salem33@university.edu.eg",
-            "position": "Student Affairs Officer"
-        },
-        {
-            "id": 34,
-            "name": "Yasmin Nasser",
-            "email": "yasmin.nasser34@university.edu.eg",
-            "position": "Student Affairs Officer"
-        },
-        {
-            "id": 35,
-            "name": "Sara Nasser",
-            "email": "sara.nasser35@university.edu.eg",
-            "position": "Office Manager"
-        },
-        {
-            "id": 36,
-            "name": "Leila Farouk",
-            "email": "leila.farouk36@university.edu.eg",
-            "position": "Administrative Assistant"
-        },
-        {
-            "id": 37,
-            "name": "Walid Gamal",
-            "email": "walid.gamal37@university.edu.eg",
-            "position": "Finance Officer"
-        },
-        {
-            "id": 38,
-            "name": "Mohamed Jabr",
-            "email": "mohamed.jabr38@university.edu.eg",
-            "position": "Student Affairs Officer"
-        },
-        {
-            "id": 39,
-            "name": "Hamza Badawi",
-            "email": "hamza.badawi39@university.edu.eg",
-            "position": "Maintenance Supervisor"
-        },
-        {
-            "id": 40,
-            "name": "Huda Khalil",
-            "email": "huda.khalil40@university.edu.eg",
-            "position": "Student Affairs Officer"
+          "courseId": 18,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
         }
-    ]
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Prof. Huda Rashid",
+      "email": "huda.rashid@university.edu.eg",
+      "age": 44,
+      "role": "instructor",
+      "department": "Cybersecurity",
+      "assignedCourses": [
+        {
+          "courseId": 9,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Dr. Dina Nasser",
+      "email": "dina.nasser@university.edu.eg",
+      "age": 38,
+      "role": "instructor",
+      "department": "Information Systems",
+      "assignedCourses": [
+        {
+          "courseId": 8,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Eng. Maya Hassan",
+      "email": "maya.hassan@university.edu.eg",
+      "age": 58,
+      "role": "instructor",
+      "department": "Software Engineering",
+      "assignedCourses": [
+        {
+          "courseId": 8,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Dr. Nour Mahfouz",
+      "email": "nour.mahfouz@university.edu.eg",
+      "age": 49,
+      "role": "instructor",
+      "department": "Information Technology",
+      "assignedCourses": [
+        {
+          "courseId": 6,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Prof. Mona Gamal",
+      "email": "mona.gamal@university.edu.eg",
+      "age": 50,
+      "role": "instructor",
+      "department": "Cybersecurity",
+      "assignedCourses": [
+        {
+          "courseId": 13,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Eng. Sara Mahfouz",
+      "email": "sara.mahfouz@university.edu.eg",
+      "age": 57,
+      "role": "instructor",
+      "department": "Computer Science",
+      "assignedCourses": [
+        {
+          "courseId": 10,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Eng. Aisha Nasser",
+      "email": "aisha.nasser@university.edu.eg",
+      "age": 46,
+      "role": "instructor",
+      "department": "Cybersecurity",
+      "assignedCourses": [
+        {
+          "courseId": 10,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Dr. Dina Mahfouz",
+      "email": "dina.mahfouz@university.edu.eg",
+      "age": 46,
+      "role": "instructor",
+      "department": "Computer Engineering",
+      "assignedCourses": [
+        {
+          "courseId": 11,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Prof. Samir Rashid",
+      "email": "samir.rashid@university.edu.eg",
+      "age": 58,
+      "role": "instructor",
+      "department": "Software Engineering",
+      "assignedCourses": [
+        {
+          "courseId": 3,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Dr. Samir Mansour",
+      "email": "samir.mansour@university.edu.eg",
+      "age": 39,
+      "role": "instructor",
+      "department": "Information Systems",
+      "assignedCourses": [
+        {
+          "courseId": 8,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Prof. Yasmin Jabr",
+      "email": "yasmin.jabr@university.edu.eg",
+      "age": 54,
+      "role": "instructor",
+      "department": "Artificial Intelligence",
+      "assignedCourses": [
+        {
+          "courseId": 12,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Dr. Amira Kamel",
+      "email": "amira.kamel@university.edu.eg",
+      "age": 59,
+      "role": "instructor",
+      "department": "Artificial Intelligence",
+      "assignedCourses": [
+        {
+          "courseId": 4,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Prof. Khaled Gamal",
+      "email": "khaled.gamal@university.edu.eg",
+      "age": 57,
+      "role": "instructor",
+      "department": "Data Science",
+      "assignedCourses": [
+        {
+          "courseId": 9,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Eng. Zahra Khalil",
+      "email": "zahra.khalil@university.edu.eg",
+      "age": 43,
+      "role": "instructor",
+      "department": "Artificial Intelligence",
+      "assignedCourses": [
+        {
+          "courseId": 1,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Prof. Tariq Mansour",
+      "email": "tariq.mansour@university.edu.eg",
+      "age": 56,
+      "role": "instructor",
+      "department": "Artificial Intelligence",
+      "assignedCourses": [
+        {
+          "courseId": 11,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Prof. Leila Hakim",
+      "email": "leila.hakim@university.edu.eg",
+      "age": 38,
+      "role": "instructor",
+      "department": "Artificial Intelligence",
+      "assignedCourses": [
+        {
+          "courseId": 19,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Dr. Basel Badawi",
+      "email": "basel.badawi@university.edu.eg",
+      "age": 49,
+      "role": "instructor",
+      "department": "Data Science",
+      "assignedCourses": [
+        {
+          "courseId": 14,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Eng. Leila Hakim",
+      "email": "leila.hakim@university.edu.eg",
+      "age": 56,
+      "role": "instructor",
+      "department": "Information Systems",
+      "assignedCourses": [
+        {
+          "courseId": 17,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Prof. Huda Mahfouz",
+      "email": "huda.mahfouz@university.edu.eg",
+      "age": 33,
+      "role": "instructor",
+      "department": "Information Technology",
+      "assignedCourses": [
+        {
+          "courseId": 5,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Dr. Dina Amin",
+      "email": "dina.amin@university.edu.eg",
+      "age": 53,
+      "role": "instructor",
+      "department": "Cybersecurity",
+      "assignedCourses": [
+        {
+          "courseId": 17,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Prof. Tarek Badawi",
+      "email": "tarek.badawi@university.edu.eg",
+      "age": 48,
+      "role": "instructor",
+      "department": "Information Technology",
+      "assignedCourses": [
+        {
+          "courseId": 10,
+          "startDate": "2026-02-01",
+          "endDate": "2026-06-01"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Nada Mahfouz",
+      "email": "nada.mahfouz1@university.edu.eg",
+      "age": 30,
+      "role": "employee",
+      "position": "Lab Technician"
+    },
+    {
+      "id": 27,
+      "name": "Nour Farouk",
+      "email": "nour.farouk2@university.edu.eg",
+      "age": 58,
+      "role": "employee",
+      "position": "Research Assistant"
+    },
+    {
+      "id": 28,
+      "name": "Dina Khalil",
+      "email": "dina.khalil3@university.edu.eg",
+      "age": 26,
+      "role": "employee",
+      "position": "Academic Advisor"
+    },
+    {
+      "id": 29,
+      "name": "Karim Mahfouz",
+      "email": "karim.mahfouz4@university.edu.eg",
+      "age": 40,
+      "role": "employee",
+      "position": "Lab Technician"
+    },
+    {
+      "id": 30,
+      "name": "Malak Gamal",
+      "email": "malak.gamal5@university.edu.eg",
+      "age": 37,
+      "role": "employee",
+      "position": "Administrative Assistant"
+    },
+    {
+      "id": 31,
+      "name": "Samir Amin",
+      "email": "samir.amin6@university.edu.eg",
+      "age": 28,
+      "role": "employee",
+      "position": "Research Assistant"
+    },
+    {
+      "id": 32,
+      "name": "Lina Badawi",
+      "email": "lina.badawi7@university.edu.eg",
+      "age": 27,
+      "role": "employee",
+      "position": "Finance Officer"
+    },
+    {
+      "id": 33,
+      "name": "Layla Amin",
+      "email": "layla.amin8@university.edu.eg",
+      "age": 58,
+      "role": "employee",
+      "position": "Registrar"
+    },
+    {
+      "id": 34,
+      "name": "Salma Mansour",
+      "email": "salma.mansour9@university.edu.eg",
+      "age": 43,
+      "role": "employee",
+      "position": "Librarian"
+    },
+    {
+      "id": 35,
+      "name": "Malak Mansour",
+      "email": "malak.mansour10@university.edu.eg",
+      "age": 31,
+      "role": "employee",
+      "position": "Finance Officer"
+    },
+    {
+      "id": 36,
+      "name": "Lina Rashid",
+      "email": "lina.rashid11@university.edu.eg",
+      "age": 47,
+      "role": "employee",
+      "position": "Lab Technician"
+    },
+    {
+      "id": 37,
+      "name": "Zahra Nasser",
+      "email": "zahra.nasser12@university.edu.eg",
+      "age": 34,
+      "role": "employee",
+      "position": "Registrar"
+    },
+    {
+      "id": 38,
+      "name": "Mona Aziz",
+      "email": "mona.aziz13@university.edu.eg",
+      "age": 29,
+      "role": "employee",
+      "position": "HR Manager"
+    },
+    {
+      "id": 39,
+      "name": "Mariam Hassan",
+      "email": "mariam.hassan14@university.edu.eg",
+      "age": 32,
+      "role": "employee",
+      "position": "Research Assistant"
+    },
+    {
+      "id": 40,
+      "name": "Rania Kamel",
+      "email": "rania.kamel15@university.edu.eg",
+      "age": 53,
+      "role": "employee",
+      "position": "Maintenance Supervisor"
+    },
+    {
+      "id": 41,
+      "name": "Rami Mansour",
+      "email": "rami.mansour16@university.edu.eg",
+      "age": 42,
+      "role": "employee",
+      "position": "Registrar"
+    },
+    {
+      "id": 42,
+      "name": "Nour Farouk",
+      "email": "nour.farouk17@university.edu.eg",
+      "age": 43,
+      "role": "employee",
+      "position": "Lab Technician"
+    },
+    {
+      "id": 43,
+      "name": "Hassan Hakim",
+      "email": "hassan.hakim18@university.edu.eg",
+      "age": 38,
+      "role": "employee",
+      "position": "Security Officer"
+    },
+    {
+      "id": 44,
+      "name": "Fares Hakim",
+      "email": "fares.hakim19@university.edu.eg",
+      "age": 41,
+      "role": "employee",
+      "position": "Academic Advisor"
+    },
+    {
+      "id": 45,
+      "name": "Leila Amin",
+      "email": "leila.amin20@university.edu.eg",
+      "age": 54,
+      "role": "employee",
+      "position": "Librarian"
+    },
+    {
+      "id": 46,
+      "name": "Khaled Mansour",
+      "email": "khaled.mansour21@university.edu.eg",
+      "age": 55,
+      "role": "employee",
+      "position": "Research Assistant"
+    },
+    {
+      "id": 47,
+      "name": "Nada Kamel",
+      "email": "nada.kamel22@university.edu.eg",
+      "age": 31,
+      "role": "employee",
+      "position": "IT Support"
+    },
+    {
+      "id": 48,
+      "name": "Ibrahim Aziz",
+      "email": "ibrahim.aziz23@university.edu.eg",
+      "age": 43,
+      "role": "employee",
+      "position": "Security Officer"
+    },
+    {
+      "id": 49,
+      "name": "Nour Farouk",
+      "email": "nour.farouk24@university.edu.eg",
+      "age": 55,
+      "role": "employee",
+      "position": "Maintenance Supervisor"
+    },
+    {
+      "id": 50,
+      "name": "Rania Khalil",
+      "email": "rania.khalil25@university.edu.eg",
+      "age": 56,
+      "role": "employee",
+      "position": "HR Manager"
+    },
+    {
+      "id": 51,
+      "name": "Rami Gamal",
+      "email": "rami.gamal26@university.edu.eg",
+      "age": 58,
+      "role": "employee",
+      "position": "Office Manager"
+    },
+    {
+      "id": 52,
+      "name": "Youssef Hakim",
+      "email": "youssef.hakim27@university.edu.eg",
+      "age": 57,
+      "role": "employee",
+      "position": "Administrative Assistant"
+    },
+    {
+      "id": 53,
+      "name": "Layla Khalil",
+      "email": "layla.khalil28@university.edu.eg",
+      "age": 44,
+      "role": "employee",
+      "position": "IT Support"
+    },
+    {
+      "id": 54,
+      "name": "Mohamed Mansour",
+      "email": "mohamed.mansour29@university.edu.eg",
+      "age": 35,
+      "role": "employee",
+      "position": "Lab Technician"
+    },
+    {
+      "id": 55,
+      "name": "Mohamed Kamel",
+      "email": "mohamed.kamel30@university.edu.eg",
+      "age": 45,
+      "role": "employee",
+      "position": "Academic Advisor"
+    },
+    {
+      "id": 56,
+      "name": "Maya Mansour",
+      "email": "maya.mansour31@university.edu.eg",
+      "age": 60,
+      "role": "employee",
+      "position": "Administrative Assistant"
+    },
+    {
+      "id": 57,
+      "name": "Leila Amin",
+      "email": "leila.amin32@university.edu.eg",
+      "age": 56,
+      "role": "employee",
+      "position": "Registrar"
+    },
+    {
+      "id": 58,
+      "name": "Layla Salem",
+      "email": "layla.salem33@university.edu.eg",
+      "age": 35,
+      "role": "employee",
+      "position": "Student Affairs Officer"
+    },
+    {
+      "id": 59,
+      "name": "Yasmin Nasser",
+      "email": "yasmin.nasser34@university.edu.eg",
+      "age": 27,
+      "role": "employee",
+      "position": "Student Affairs Officer"
+    },
+    {
+      "id": 60,
+      "name": "Sara Nasser",
+      "email": "sara.nasser35@university.edu.eg",
+      "age": 25,
+      "role": "employee",
+      "position": "Office Manager"
+    },
+    {
+      "id": 61,
+      "name": "Leila Farouk",
+      "email": "leila.farouk36@university.edu.eg",
+      "age": 27,
+      "role": "employee",
+      "position": "Administrative Assistant"
+    },
+    {
+      "id": 62,
+      "name": "Walid Gamal",
+      "email": "walid.gamal37@university.edu.eg",
+      "age": 49,
+      "role": "employee",
+      "position": "Finance Officer"
+    },
+    {
+      "id": 63,
+      "name": "Mohamed Jabr",
+      "email": "mohamed.jabr38@university.edu.eg",
+      "age": 26,
+      "role": "employee",
+      "position": "Student Affairs Officer"
+    },
+    {
+      "id": 64,
+      "name": "Hamza Badawi",
+      "email": "hamza.badawi39@university.edu.eg",
+      "age": 46,
+      "role": "employee",
+      "position": "Maintenance Supervisor"
+    },
+    {
+      "id": 65,
+      "name": "Huda Khalil",
+      "email": "huda.khalil40@university.edu.eg",
+      "age": 24,
+      "role": "employee",
+      "position": "Student Affairs Officer"
+    }
+  ]
 }
