@@ -18,40 +18,42 @@ class DataTable {
 
   renderTableContainer() {
     const containerHTML = `
-      <!-- Filters row -->
-      <div class="row mb-3 g-2">
-        <div class="col-md-6">
-          <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
-            <input
-              id="search-input"
-              type="text"
-              class="form-control"
-              placeholder="Search..."
-            />
+      <div class="container-fluid">
+        <!-- Filters row -->
+        <div class="row mb-3 g-2">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <input
+                id="search-input"
+                type="text"
+                class="form-control"
+                placeholder="Search..."
+              />
+            </div>
+          </div>
+          <div class="col-md-3 ms-auto text-md-end">
+            <select id="page-size" class="form-select">
+              <option value="5">5 per page</option>
+              <option value="10" selected>10 per page</option>
+              <option value="20">20 per page</option>
+            </select>
           </div>
         </div>
-        <div class="col-md-3 ms-auto text-md-end">
-          <select id="page-size" class="form-select">
-            <option value="5">5 per page</option>
-            <option value="10" selected>10 per page</option>
-            <option value="20">20 per page</option>
-          </select>
-        </div>
-      </div>
 
-      <!-- Table card -->
-      <div class="card">
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-hover mb-0 align-middle">
-              <thead class="table-light" id="table-head">
-                <!-- DataTable.js will render headers -->
-              </thead>
-              <tbody id="table-body">
-                <!-- DataTable.js will render rows -->
-              </tbody>
-            </table>
+        <!-- Table card -->
+        <div class="card">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light" id="table-head">
+                  <!-- DataTable.js will render headers -->
+                </thead>
+                <tbody id="table-body">
+                  <!-- DataTable.js will render rows -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -102,6 +104,16 @@ class DataTable {
 
   renderRows(items) {
     this.bodyElement.innerHTML = "";
+    if (items.length === 0) {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = this.columns.length + 1;
+      td.classList.add("text-center", "text-muted");
+      td.textContent = "No data available";
+      tr.appendChild(td);
+      this.bodyElement.appendChild(tr);
+      return;
+    }
 
     items.forEach((item) => {
       const tr = document.createElement("tr");
@@ -132,6 +144,8 @@ class DataTable {
           }
 
           td.appendChild(select);
+        } else if (col.key === "assignedCourses" || Array.isArray(value)) {
+          td.textContent = value[0]?.courseName || "No courses assigned";
         } else {
           // Handle other columns normally
           td.textContent = Array.isArray(value) ? value.join(", ") : value;

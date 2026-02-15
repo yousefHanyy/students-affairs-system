@@ -1,7 +1,9 @@
 // Base API Class to Handle API Requests.
 // GET, POST, PUT, DELETE Methods for API Calls.
 class BaseApi {
-  constructor(baseURL = "http://localhost:3000") {
+  constructor(
+    baseURL = import.meta.env.VITE_API_URL || "http://localhost:3000",
+  ) {
     this.baseURL = baseURL;
   }
 

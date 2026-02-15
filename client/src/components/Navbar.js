@@ -9,7 +9,7 @@ class Navbar {
       <!-- Top navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Students Affairs System</a>
+          <h1 class="navbar-brand">Students Affairs System</h1>
         </div>
       </nav>
 
@@ -19,28 +19,28 @@ class Navbar {
           <li class="nav-item">
             <button
               class="nav-link active"
-              data-entity="student"
+              data-entity="students"
               id="tab-students"
             >
               Students
             </button>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-entity="course" id="tab-courses">
+            <button class="nav-link" data-entity="courses" id="tab-courses">
               Courses
             </button>
           </li>
           <li class="nav-item">
             <button
               class="nav-link"
-              data-entity="instructor"
+              data-entity="instructors"
               id="tab-instructors"
             >
               Instructors
             </button>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-entity="employee" id="tab-employees">
+            <button class="nav-link" data-entity="employees" id="tab-employees">
               Employees
             </button>
           </li>

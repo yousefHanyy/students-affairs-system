@@ -42,14 +42,14 @@ export default class CourseService extends BaseApi {
     return this.delete(`${this.endpoint}/${id}`);
   }
 
-  //UC-05 Paginate records
-  async getCoursePage(page = 1, perPage = 10) {
+  //UC-05 Paginate records & UC-06 Search records
+  async getCoursePageWithSearch(page = 1, perPage = 10, query = "") {
     const params = new URLSearchParams();
     params.set("_page", String(page));
     params.set("_limit", String(perPage));
 
-    const { data, headers } = await this.getWithHeaders(
-      `${this.endpoint}?${params.toString()}`,
+    let { data, headers } = await this.getWithHeaders(
+      `${this.endpoint}?${params.toString()}&name_like=${query}`,
     );
     const total = Number(headers.get("X-Total-Count") ?? "0");
     const totalPages = Math.ceil(total / perPage);
@@ -57,11 +57,6 @@ export default class CourseService extends BaseApi {
     const hasPrev = page > 1;
 
     return { data, total, totalPages, currentPage: page, hasNext, hasPrev };
-  }
-
-  //UC-06 Search records
-  searchCoursesByName(query) {
-    return this.get(`/courses?name_like=${query}`);
   }
 
   //UC-07 Sort records
