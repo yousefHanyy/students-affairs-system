@@ -21,7 +21,7 @@ export default class EmployeeService extends BaseApi {
     const validation = employee.validate();
 
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
 
     return this.post(this.endpoint, employee);
@@ -32,7 +32,7 @@ export default class EmployeeService extends BaseApi {
     const employeeData = new Employee(id, name, email, age, role, position);
     const validation = employeeData.validate();
     if (!validation.isValid) {
-      return validation.errors.join(", ");
+      return validation.errors;
     }
     return this.put(`${this.endpoint}/${id}`, employeeData);
   }
