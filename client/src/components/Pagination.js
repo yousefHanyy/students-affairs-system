@@ -41,7 +41,6 @@ class Pagination {
 
     this.paginationNavElm.innerHTML = "";
 
-    // Previous button
     const prevLi = document.createElement("li");
     prevLi.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
     prevLi.innerHTML = `<button class="page-link">Previous</button>`;
@@ -51,8 +50,7 @@ class Pagination {
     });
     this.paginationNavElm.appendChild(prevLi);
 
-    // Page numbers
-    const maxVisiblePages = 3; // Maximum number of page numbers to show
+    const maxVisiblePages = 3;
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
@@ -72,7 +70,6 @@ class Pagination {
       }
     }
 
-    // Page number buttons
     for (let i = startPage; i <= endPage; i++) {
       this._createPageButton(i);
     }
@@ -88,7 +85,6 @@ class Pagination {
       this._createPageButton(totalPages);
     }
 
-    // Next button
     const nextLi = document.createElement("li");
     nextLi.className = `page-item ${currentPage >= totalPages ? "disabled" : ""}`;
     nextLi.innerHTML = `<button class="page-link">Next</button>`;

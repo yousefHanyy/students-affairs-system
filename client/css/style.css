@@ -1,12 +1,10 @@
-/* Put Our Main Stayles Here */
-
-/* Prevent horizontal scrolling */
 * {
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   overflow-x: hidden;
   max-width: 100%;
 }

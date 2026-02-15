@@ -65,7 +65,6 @@ class DataTable {
 
     if (this.container) {
       this.container.innerHTML = containerHTML;
-      // Re-query the elements after rendering
       this.bodyElement = document.querySelector("#table-body");
       this.headElement = document.querySelector("#table-head");
     }
@@ -129,7 +128,7 @@ class DataTable {
         const td = document.createElement("td");
         let value = item[col.key];
 
-        // Special handling for courses column - create a dropdown
+        //Special handling for courses column - create a dropdown
         if (col.key === "courses" && Array.isArray(value)) {
           const select = document.createElement("select");
           select.className = "form-select form-select-sm";
@@ -169,14 +168,13 @@ class DataTable {
             td.textContent = `${value[0]?.endDate || "N/A"}`;
           }
         } else {
-          // Handle other columns normally
+          //Handle other columns normally
           td.textContent = Array.isArray(value) ? value.join(", ") : value;
         }
 
         tr.appendChild(td);
       });
 
-      //actionsCell:
       const actionsTd = document.createElement("td");
       actionsTd.classList.add("text-end");
 

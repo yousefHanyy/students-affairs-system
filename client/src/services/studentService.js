@@ -95,7 +95,6 @@ export default class StudentService extends BaseApi {
       `${this.endpoint}?${params.toString()}&name_like=${query}`,
     );
 
-    // Enrich data with course names
     data = await this.studentsWithCoursesNames(data);
 
     const total = Number(headers.get("X-Total-Count") ?? "0");
