@@ -298,27 +298,31 @@ table.onEdit = (item) => {
 
 // Delete
 table.onDelete = async (item) => {
-  if (confirm(`Delete ${item.name}?`)) {
-    try {
-      switch (currentEntity) {
-        case "students":
-          await studentService.deleteStudent(item.id);
-          break;
-        case "courses":
-          await courseService.deleteCourse(item.id);
-          break;
-        case "employees":
-          await employeeService.deleteEmployee(item.id);
-          break;
-        case "instructors":
-          await instructorService.deleteInstructor(item.id);
-          break;
-        // Add cases for instructors/employees when services ready
-      }
-      await loadPage(currentPage, currentEntity);
-    } catch (error) {
-      alert("Delete failed: " + error);
+  try {
+    const confirmed = await form.showConfirm(
+      "Confirm delete",
+      `Delete ${item.name}?`,
+    );
+    if (!confirmed) return;
+
+    switch (currentEntity) {
+      case "students":
+        await studentService.deleteStudent(item.id);
+        break;
+      case "courses":
+        await courseService.deleteCourse(item.id);
+        break;
+      case "employees":
+        await employeeService.deleteEmployee(item.id);
+        break;
+      case "instructors":
+        await instructorService.deleteInstructor(item.id);
+        break;
+      // Add cases for instructors/employees when services ready
     }
+    await loadPage(currentPage, currentEntity);
+  } catch (error) {
+    alert("Delete failed: " + error);
   }
 };
 
