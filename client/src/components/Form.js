@@ -66,6 +66,68 @@ class Form {
     this.initEvents();
   }
 
+  // Show a confirmation modal and return a Promise<boolean>
+  showConfirm(title = "Confirm", message = "Are you sure?") {
+    // If confirm modal doesn't exist, create it
+    let confirmModalEl = document.querySelector("#confirm-modal");
+    if (!confirmModalEl) {
+      const confirmHtml = `
+        <div class="modal fade" id="confirm-modal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="confirm-modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body" id="confirm-modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm-modal-ok">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Append confirm modal markup to container
+      this.modalContainer.insertAdjacentHTML("beforeend", confirmHtml);
+      confirmModalEl = document.querySelector("#confirm-modal");
+    }
+
+    const modalInstance = new Modal(confirmModalEl);
+    const titleEl = confirmModalEl.querySelector("#confirm-modal-title");
+    const bodyEl = confirmModalEl.querySelector("#confirm-modal-body");
+    const okBtn = confirmModalEl.querySelector("#confirm-modal-ok");
+
+    titleEl.textContent = title;
+    bodyEl.textContent = message;
+
+    return new Promise((resolve) => {
+      const cleanup = () => {
+        okBtn.removeEventListener("click", onOk);
+        confirmModalEl.removeEventListener("hidden.bs.modal", onHidden);
+      };
+
+      const onOk = () => {
+        cleanup();
+        modalInstance.hide();
+        resolve(true);
+      };
+
+      const onHidden = () => {
+        cleanup();
+        resolve(false);
+      };
+
+      okBtn.addEventListener("click", onOk);
+      confirmModalEl.addEventListener("hidden.bs.modal", onHidden, {
+        once: true,
+      });
+
+      modalInstance.show();
+    });
+  }
+
   initEvents() {
     const form = this.getFormElement();
     if (form) {
@@ -134,18 +196,36 @@ class Form {
         </div>
         <div class="mb-3">
           <label class="form-label">Courses</label>
-          <select name="courses" class="form-select" multiple>
-            ${courses
-              .map(
-                (course) => `
-              <option value="${course.id}" ${item?.courses?.includes(String(course.name)) ? "selected" : ""}>
-                ${course.name}
-              </option>
-            `,
-              )
-              .join("")}
-          </select>
-          <div class="form-text">Hold Ctrl/Cmd to select multiple courses</div>
+          <div id="courses-checkbox-group" class="row g-2">
+            ${(() => {
+              // Display 3 courses per row
+              const perRow = 3;
+              let html = "";
+              for (let i = 0; i < courses.length; i += perRow) {
+                html += '<div class="row">';
+                for (let j = i; j < i + perRow && j < courses.length; j++) {
+                  const course = courses[j];
+                  html += `
+                    <div class="col-md-4 col-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="courses" id="course-${course.id}" value="${course.id}" ${
+                          item &&
+                          item.courses &&
+                          item.courses.map(String).includes(String(course.id))
+                            ? "checked"
+                            : ""
+                        }>
+                        <label class="form-check-label" for="course-${course.id}">${course.name}</label>
+                      </div>
+                    </div>
+                  `;
+                }
+                html += "</div>";
+              }
+              return html;
+            })()}
+          </div>
+          <div id="courses-error-placeholder"></div>
         </div>
       `;
     } else if (normalizedEntity === "course") {
@@ -252,6 +332,13 @@ class Form {
     form.querySelectorAll(".invalid-feedback").forEach((element) => {
       element.remove();
     });
+    // Also clear the courses error placeholder
+    const coursesErrorDiv = document.getElementById(
+      "courses-error-placeholder",
+    );
+    if (coursesErrorDiv) {
+      coursesErrorDiv.innerHTML = "";
+    }
   }
 
   displayErrors(errors) {
@@ -261,6 +348,17 @@ class Form {
     // Iterate through each field error
     Object.keys(errors).forEach((fieldName) => {
       const errorValue = errors[fieldName];
+
+      // Special handling for courses (show error under header, not per checkbox)
+      if (fieldName === "courses" && errorValue) {
+        const coursesErrorDiv = document.getElementById(
+          "courses-error-placeholder",
+        );
+        if (coursesErrorDiv) {
+          coursesErrorDiv.innerHTML = `<div class="invalid-feedback" style="display:block">${errorValue}</div>`;
+        }
+        return;
+      }
 
       // Handle nested objects (e.g., assignedCourses: { courseId: "...", startDate: "..." })
       if (typeof errorValue === "object" && errorValue !== null) {
@@ -315,11 +413,11 @@ class Form {
     let model;
 
     if (this.currentEntity === "student") {
-      const coursesSelect = formEl.querySelector('select[name="courses"]');
-      data.courses = coursesSelect
-        ? Array.from(coursesSelect.selectedOptions).map((opt) =>
-            Number(opt.value),
-          )
+      const checkedCourses = formEl.querySelectorAll(
+        'input[name="courses"]:checked',
+      );
+      data.courses = checkedCourses
+        ? Array.from(checkedCourses).map((ch) => Number(ch.value))
         : [];
 
       model = new Student(
