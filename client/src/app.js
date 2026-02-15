@@ -17,7 +17,6 @@ import Pagination from "./components/Pagination.js";
 import Navbar from "./components/Navbar.js";
 import Form from "./components/Form.js";
 
-// Initialize components
 const navbar = new Navbar("#navbar-container");
 const dataTable = new DataTable(
   "#datatable-container",
@@ -31,25 +30,22 @@ const pagination = new Pagination(
   "#pagination",
 );
 
-// Render HTML components
 navbar.render();
 form.renderToolbar("#toolbar-container");
 form.renderModal();
 dataTable.renderTableContainer();
 pagination.renderContainer();
 
-// 1) Create instances
 const studentService = new StudentService();
 const courseService = new CourseService();
 const instructorService = new InstructorService();
 const employeeService = new EmployeeService();
 const table = dataTable;
 
-// Config
 let currentPage = 1;
 let pageSize = 10;
-let currentEntity = "students"; // For future extension to courses, employees, etc.
-let searchTerm = ""; // Added for search functionality
+let currentEntity = "students";
+let searchTerm = "";
 let currentSortField = null;
 let currentSortOrder = "asc";
 const columnsConfig = {
@@ -87,33 +83,32 @@ const columnsConfig = {
 };
 
 table.setColumns(columnsConfig["students"]);
-// 2) work with nav tabs to change currentEntity and reload data accordingly (not implemented yet, but you can add event listeners to navbar tabs to set currentEntity and call loadPage(1) to reset to first page)
+
 let navTabs = document.querySelectorAll("#main-tabs .nav-link");
 let pageTitle = document.querySelector("#page-title");
-const searchInput = document.querySelector("#search-input"); // Added for search
+const searchInput = document.querySelector("#search-input");
 navTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
-    // Update active class
     navTabs.forEach((t) => t.classList.remove("active"));
     tab.classList.add("active");
-    // Update current entity based on data attribute
+
     currentEntity = tab.getAttribute("data-entity");
-    // Update page title
+
     pageTitle.textContent =
       currentEntity.charAt(0).toUpperCase() + currentEntity.slice(1);
-    // Update table columns based on selected entity
+
     table.setColumns(columnsConfig[currentEntity ?? "students"]);
     console.log(currentEntity);
     // Reset to first page and load data for the selected entity
     currentPage = 1;
-    searchTerm = ""; // Clear search term
-    currentSortField = null; // Clear sort when switching entity
+    searchTerm = "";
+    currentSortField = null;
     currentSortOrder = "asc";
-    if (searchInput) searchInput.value = ""; // Clear search input
+    if (searchInput) searchInput.value = "";
     loadPage(currentPage, currentEntity);
   });
 });
-// 3) Load one page and render table + pagination
+// Load one page and render table + pagination
 async function loadPage(page, currentEntity = "students") {
   let result;
   try {
@@ -191,10 +186,8 @@ async function loadPage(page, currentEntity = "students") {
         return;
     }
 
-    // Render table rows
     table.renderRows(result.data);
 
-    // Render pagination UI
     pagination.render(
       result.currentPage,
       result.totalPages,
@@ -207,22 +200,11 @@ async function loadPage(page, currentEntity = "students") {
   }
 }
 
-// 4) Hook pagination -> when user changes page, reload
+// Hook pagination -> when user changes page, reload
 pagination.onPageChange = (newPage) => {
   currentPage = newPage;
   loadPage(currentPage, currentEntity);
 };
-
-// 5) Optional: hook edit/delete & sort for extra testing
-// table.onEdit = (item) => {
-//   console.log("EDIT clicked:", item);
-//   alert(`Edit ${item.name}`);
-// };
-
-// table.onDelete = (item) => {
-//   console.log("DELETE clicked:", item);
-//   alert(`Delete ${item.name}`);
-// };
 
 table.onSortChange = (field, order) => {
   // store sort state and reload first page with paginated server-side sort
@@ -231,7 +213,7 @@ table.onSortChange = (field, order) => {
   currentPage = 1;
   loadPage(currentPage, currentEntity);
 };
-// 5) Hook Add/Edit/Delete with Form:
+// Hook Add/Edit/Delete with Form:
 form.onSubmit = async (model, action) => {
   try {
     switch (currentEntity) {
@@ -291,12 +273,10 @@ form.onSubmit = async (model, action) => {
   }
 };
 
-// Edit
 table.onEdit = (item) => {
   form.show(currentEntity, item);
 };
 
-// Delete
 table.onDelete = async (item) => {
   try {
     const confirmed = await form.showConfirm(
@@ -318,7 +298,6 @@ table.onDelete = async (item) => {
       case "instructors":
         await instructorService.deleteInstructor(item.id);
         break;
-      // Add cases for instructors/employees when services ready
     }
     await loadPage(currentPage, currentEntity);
   } catch (error) {
@@ -326,7 +305,6 @@ table.onDelete = async (item) => {
   }
 };
 
-// Add button handler
 document.addEventListener("click", (e) => {
   //e.target.closest used for delegation instad of adding a click listener for every button
   if (e.target.closest("#btn-add")) {
@@ -334,10 +312,10 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// 6) Initial load
+// Initial load
 loadPage(currentPage);
 
-// 7) Hook page size selector
+// Hook page size selector
 const pageSizeSelect = document.querySelector("#page-size");
 if (pageSizeSelect) {
   pageSizeSelect.addEventListener("change", (event) => {
@@ -347,7 +325,7 @@ if (pageSizeSelect) {
   });
 }
 
-// 8) Implement search functionality with debounce
+// Implement search functionality with debounce
 let debounceTimer;
 if (searchInput) {
   searchInput.addEventListener("input", (event) => {

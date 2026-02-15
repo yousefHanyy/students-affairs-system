@@ -2,7 +2,6 @@ const jsonServer = require("json-server");
 const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
 
-// For write operations (won't persist on Vercel, but works locally)
 const fs = require("fs");
 const path = require("path");
 const filePath = path.join(__dirname, "../db.json");
@@ -14,9 +13,9 @@ server.use(middlewares);
 
 // CORS for frontend
 const allowedOrigins = [
-  "https://students-affairs-system.vercel.app", // Your frontend
-  "http://localhost:8080", // Local development
-  "http://localhost:5173", // Vite default port
+  "https://students-affairs-system.vercel.app",
+  "http://localhost:8080",
+  "http://localhost:5173",
 ];
 
 server.use((req, res, next) => {
@@ -54,7 +53,6 @@ server.use(router);
 
 server.use(router);
 
-// REMOVE THIS for Vercel - keep only for local testing
 if (process.env.NODE_ENV !== "production") {
   server.listen(3000, () => {
     console.log("JSON Server is running on http://localhost:3000");

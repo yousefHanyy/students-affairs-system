@@ -66,9 +66,7 @@ class Form {
     this.initEvents();
   }
 
-  // Show a confirmation modal and return a Promise<boolean>
   showConfirm(title = "Confirm", message = "Are you sure?") {
-    // If confirm modal doesn't exist, create it
     let confirmModalEl = document.querySelector("#confirm-modal");
     if (!confirmModalEl) {
       const confirmHtml = `
@@ -89,7 +87,6 @@ class Form {
         </div>
       `;
 
-      // Append confirm modal markup to container
       this.modalContainer.insertAdjacentHTML("beforeend", confirmHtml);
       confirmModalEl = document.querySelector("#confirm-modal");
     }
@@ -131,7 +128,7 @@ class Form {
   initEvents() {
     const form = this.getFormElement();
     if (form) {
-      // Remove existing listener if any to avoid duplicates
+      //Remove existing listener if any to avoid duplicates
       form.removeEventListener("submit", this.handleSubmit.bind(this));
       form.addEventListener("submit", (e) => {
         this.handleSubmit(e);
@@ -153,7 +150,7 @@ class Form {
 
   async initCourseService() {
     if (!this.courseService) {
-      // dynamically import to save memory space if course service is not needed right now
+      //dynamically import to save memory space if course service is not needed right now
       const { default: CourseService } =
         await import("../services/courseService.js");
       this.courseService = new CourseService();
@@ -161,7 +158,7 @@ class Form {
   }
 
   async buildFields(entity, item = null) {
-    // normalize entity names (app uses plurals like 'students')
+    //normalize entity names (app uses plurals like 'students')
     const normalizedEntity =
       entity && entity.endsWith("s") ? entity.slice(0, -1) : entity;
     this.currentEntity = normalizedEntity;
@@ -198,7 +195,6 @@ class Form {
           <label class="form-label">Courses</label>
           <div id="courses-checkbox-group" class="row g-2">
             ${(() => {
-              // Display 3 courses per row
               const perRow = 3;
               let html = "";
               for (let i = 0; i < courses.length; i += perRow) {
@@ -259,7 +255,6 @@ class Form {
         </div>
       `;
     } else if (normalizedEntity === "instructor") {
-      // Load courses for instructor dropdown
       await this.initCourseService();
       const courses = await this.courseService.getAllCourses();
 
@@ -345,11 +340,9 @@ class Form {
     const form = this.getFormElement();
     if (!form) return;
 
-    // Iterate through each field error
     Object.keys(errors).forEach((fieldName) => {
       const errorValue = errors[fieldName];
 
-      // Special handling for courses (show error under header, not per checkbox)
       if (fieldName === "courses" && errorValue) {
         const coursesErrorDiv = document.getElementById(
           "courses-error-placeholder",
@@ -360,7 +353,6 @@ class Form {
         return;
       }
 
-      // Handle nested objects (e.g., assignedCourses: { courseId: "...", startDate: "..." })
       if (typeof errorValue === "object" && errorValue !== null) {
         Object.keys(errorValue).forEach((nestedField) => {
           let input = null;
@@ -382,7 +374,6 @@ class Form {
           }
         });
       } else {
-        // Handle simple string errors (direct field errors)
         const input = form.querySelector(`[name="${fieldName}"]`);
         if (input) {
           this.applyErrorToInput(input, errorValue);
@@ -403,7 +394,6 @@ class Form {
   async handleSubmit(e) {
     e.preventDefault();
 
-    // Clear previous errors
     this.clearErrors();
 
     const formData = new FormData(this.getFormElement());
