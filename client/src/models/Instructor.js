@@ -8,7 +8,7 @@ import Validators from "../utils/validators.js";
 class Instructor extends Employee {
   constructor(id = null, name, email, age, department, assignedCourses = []) {
     // Call parent constructor with role set to "Instructor"
-    super(id, name, email, age, "Instructor");
+    super(id, name, email, age, "instructor");
 
     this.department = department;
     this.assignedCourses = assignedCourses; // Array of {courseId, startDate, endDate}
