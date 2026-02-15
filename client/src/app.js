@@ -50,6 +50,8 @@ let currentPage = 1;
 let pageSize = 10;
 let currentEntity = "students"; // For future extension to courses, employees, etc.
 let searchTerm = ""; // Added for search functionality
+let currentSortField = null;
+let currentSortOrder = "asc";
 const columnsConfig = {
   students: [
     { key: "id", label: "ID" },
@@ -105,6 +107,8 @@ navTabs.forEach((tab) => {
     // Reset to first page and load data for the selected entity
     currentPage = 1;
     searchTerm = ""; // Clear search term
+    currentSortField = null; // Clear sort when switching entity
+    currentSortOrder = "asc";
     if (searchInput) searchInput.value = ""; // Clear search input
     loadPage(currentPage, currentEntity);
   });
@@ -115,55 +119,70 @@ async function loadPage(page, currentEntity = "students") {
   try {
     switch (currentEntity) {
       case "students":
-        if (searchTerm) {
-          result = await studentService.getStudentPageWithSearch(
+        if (currentSortField) {
+          result = await studentService.getSortedStudentsPage(
             page,
             pageSize,
+            currentSortField,
+            currentSortOrder,
             searchTerm,
           );
         } else {
           result = await studentService.getStudentPageWithSearch(
             page,
             pageSize,
+            searchTerm,
           );
         }
         break;
       case "courses":
-        if (searchTerm) {
+        if (currentSortField) {
+          result = await courseService.getSortedCoursesPage(
+            page,
+            pageSize,
+            currentSortField,
+            currentSortOrder,
+            searchTerm,
+          );
+        } else {
           result = await courseService.getCoursePageWithSearch(
             page,
             pageSize,
             searchTerm,
           );
-        } else {
-          result = await courseService.getCoursePageWithSearch(page, pageSize);
         }
         break;
       case "instructors":
-        if (searchTerm) {
-          result = await instructorService.getInstructorPageWithSearch(
+        if (currentSortField) {
+          result = await instructorService.getSortedInstructorsPage(
             page,
             pageSize,
+            currentSortField,
+            currentSortOrder,
             searchTerm,
           );
         } else {
           result = await instructorService.getInstructorPageWithSearch(
             page,
             pageSize,
+            searchTerm,
           );
         }
         break;
       case "employees":
-        if (searchTerm) {
-          result = await employeeService.getEmployeePageWithSearch(
+        if (currentSortField) {
+          result = await employeeService.getSortedEmployeesPage(
             page,
             pageSize,
+            currentSortField,
+            currentSortOrder,
             searchTerm,
           );
         } else {
           result = await employeeService.getEmployeePageWithSearch(
             page,
             pageSize,
+            searchTerm,
           );
         }
         break;
@@ -205,21 +224,13 @@ pagination.onPageChange = (newPage) => {
 //   alert(`Delete ${item.name}`);
 // };
 
-// table.onSortChange = async (field, order) => {
-//   console.log("SORT changed:", field, order);
-//   // If you want server‑side sort with pagination later, call a different service method.
-//   // For now, we just sort in memory the current page:
-//   const result = await studentService.getStudentPageWithSearch(
-//     currentPage,
-//     pageSize,
-//   );
-//   const sorted = [...result.data].sort((a, b) => {
-//     if (a[field] < b[field]) return order === "asc" ? -1 : 1;
-//     if (a[field] > b[field]) return order === "asc" ? 1 : -1;
-//     return 0;
-//   });
-//   table.renderRows(sorted);
-// };
+table.onSortChange = (field, order) => {
+  // store sort state and reload first page with paginated server-side sort
+  currentSortField = field;
+  currentSortOrder = order;
+  currentPage = 1;
+  loadPage(currentPage, currentEntity);
+};
 // 5) Hook Add/Edit/Delete with Form:
 form.onSubmit = async (model, action) => {
   try {
