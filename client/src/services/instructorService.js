@@ -12,24 +12,36 @@ export default class InstructorService extends BaseApi {
   }
 
   async instructorWithCoursesNames(instructors) {
-    const courseService = new CourseService();
+    let courseService = new CourseService();
     const courses = await courseService.getAllCourses();
     const instructorsArray = Array.isArray(instructors)
       ? instructors
       : [instructors];
 
     const enriched = instructorsArray.map((instructor) => {
-      if (!Array.isArray(instructor.assignedCourses)) return instructor;
+      if (
+        instructor.assignedCourses &&
+        Array.isArray(instructor.assignedCourses)
+      ) {
+        // Save original IDs before any transformation
+        const originalCourseId = instructor.assignedCourses[0].courseId;
+        const courseName =
+          courses.find((c) => c.id === originalCourseId)?.name ||
+          "No Assigned Course";
+        const originalAssignedCourses = instructor.assignedCourses;
 
-      const mapped = instructor.assignedCourses.map((ac) => {
-        const found = courses.find((c) => Number(c.id) === Number(ac.courseId));
+        // Return NEW object with transformed courses
         return {
-          ...ac,
-          courseName: found ? found.name : "Deleted course",
+          ...instructor,
+          assignedCourses: [
+            {
+              ...originalAssignedCourses[0],
+              courseName: courseName,
+            },
+          ],
         };
-      });
-
-      return { ...instructor, assignedCourses: mapped };
+      }
+      return instructor;
     });
 
     return Array.isArray(instructors) ? enriched : enriched[0];
