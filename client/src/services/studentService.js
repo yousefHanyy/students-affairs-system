@@ -14,24 +14,19 @@ export default class StudentService extends BaseApi {
 
   // method to replace course IDs with course names
   async studentsWithCoursesNames(students) {
-    const courses = await this.courseService.getAllCourses();
+    const courses = await this.courseService.getAllCourses(); // array of courses
     const studentsArray = Array.isArray(students) ? students : [students];
 
     const enriched = studentsArray.map((student) => {
-      if (student.courses && Array.isArray(student.courses)) {
-        const originalCourseIds = [...student.courses];
+      if (!Array.isArray(student.courses)) return student;
 
-        // Convert course.id to Number for comparison
-        const matched = courses.filter((c) =>
-          originalCourseIds.includes(Number(c.id)),
-        );
+      // keep same length, but show message for missing ones
+      const namesOrMissing = student.courses.map((courseId) => {
+        const found = courses.find((c) => Number(c.id) === Number(courseId));
+        return found ? found.name : "Deleted course";
+      });
 
-        return {
-          ...student,
-          courses: matched.map((c) => c.name),
-        };
-      }
-      return student;
+      return { ...student, courses: namesOrMissing };
     });
 
     return Array.isArray(students) ? enriched : enriched[0];
