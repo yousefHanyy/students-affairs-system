@@ -148,6 +148,8 @@ students-affairs-system/
 │   ├── package.json
 │   └── vercel.json
 ├── .gitignore
+├── .npmignore
+├── package.json
 └── README.md
 ```
 

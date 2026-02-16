@@ -1,6 +1,6 @@
 {
   "name": "students-affairs-system",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A comprehensive web application for managing student, course, instructor, and employee data within a Students Affairs department. Features CRUD operations, pagination, search, and sorting capabilities.",
   "main": "server/api/server.js",
   "scripts": {
