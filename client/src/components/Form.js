@@ -207,7 +207,7 @@ class Form {
                         <input class="form-check-input" type="checkbox" name="courses" id="course-${course.id}" value="${course.id}" ${
                           item &&
                           item.courses &&
-                          item.courses.map(String).includes(String(course.id))
+                          item.courses.map(String).includes(String(course.name))
                             ? "checked"
                             : ""
                         }>
